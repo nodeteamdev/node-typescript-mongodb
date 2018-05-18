@@ -57,7 +57,7 @@ npm install -g ts-node
 npm install -g typescript
 nodemon
 ```
-Express server listening on http://0.0.0.0:3000, in development mode
+Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
 
 Create a user:
