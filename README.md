@@ -14,7 +14,7 @@ This generator will help you to build your own Node.js Express Mongodb API using
 First, install [Yeoman](http://yeoman.io) and generator-ts-node-api using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ## App skeleton
-
+```
 root/
 ├── src
 |  ├──config
@@ -36,6 +36,7 @@ root/
 ├── .tslint.json
 ├── package.json
 ├── README.md
+```
 ```
 
 ```bash
