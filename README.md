@@ -37,19 +37,6 @@ root/
 ├── package.json
 ├── README.md
 ```
-```
-
-```bash
-npm install -g yo
-npm install -g generator-ts-node-api
-```
-
-Then generate your new project:
-
-```bash
-yo ts-node-api
-```
-
 ## Running the API
 ### Development
 To start the application in development mode, run:
