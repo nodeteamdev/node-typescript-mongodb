@@ -7,7 +7,7 @@ This generator will help you to build your own Node.js Express Mongodb API using
 
 ### Project Introduction
 - suppot ES6/ES7 features
-- using ESlint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+- using tslint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
 ## Installation
 
