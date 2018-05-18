@@ -1,0 +1,11 @@
+# Logs
+logs
+*.log
+node_modules
+.DS_STORE
+.netbeans
+.idea
+.vscode
+.node_history
+.vscode
+build
