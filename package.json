@@ -1,7 +1,8 @@
 {
-  "name": "typescript-express-server",
+  "name": "typescript-express-rest-api",
   "version": "1.0.0",
   "main": "./build/index.js",
+  "keywords": ["yeoman-generator", "typescript", "node", "nodejs", "rest", "restfull", "api"],
   "scripts": {
     "server": "tsc && nodemon ./build/index.js",
     "start": "node ./build/index.js",
