@@ -1,60 +1,90 @@
 {
-    "name": "typescript-express-rest-api",
-    "version": "1.0.0",
-    "main": "./build/index.js",
-    "keywords": [
-        "yeoman-generator",
-        "typescript",
-        "node",
-        "nodejs",
-        "rest",
-        "restfull",
-        "api",
-        "builder",
-        "generator"
+  "name": "generator-node-express-typescript-api",
+  "version": "1.0.14",
+  "description": "This generator will help you to build your own Node.js Express Mongodb API using TypeScript.",
+  "homepage": "https://github.com/ChechaValerii/node-typescript-mongodb#readme",
+  "author": {
+    "name": "Checha Valerii",
+    "email": "chechavalera@gmail.com",
+    "url": "https://github.com/ChechaValerii"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "yeoman-generator",
+    "typescript",
+    "node",
+    "nodejs",
+    "rest",
+    "restfull",
+    "api",
+    "builder",
+    "generator"
+  ],
+  "devDependencies": {
+    "yeoman-test": "^1.7.0",
+    "yeoman-assert": "^3.1.0",
+    "nsp": "^2.8.0",
+    "eslint": "^4.19.1",
+    "prettier": "^1.11.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-config-xo": "^0.20.1",
+    "jest": "^22.0.6"
+  },
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "dependencies": {
+    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.1.0",
+    "yosay": "^2.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "prepublishOnly": "nsp check",
+    "pretest": "eslint .",
+    "precommit": "lint-staged",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
     ],
-    "author": "Checha Valerii <chechavalera@gmail.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/ChechaValerii/node-typescript-mongodb/issues"
-    },
-    "homepage": "https://github.com/ChechaValerii/node-typescript-mongodb#readme",
-    "scripts": {
-        "server": "tsc && nodemon ./build/index.js",
-        "start": "node ./build/index.js",
-        "ts:watch": "tsc -w",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "files": [
-        "src"
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
     ],
-    "dependencies": {
-        "bcrypt-nodejs": "^0.0.3",
-        "body-parser": "1.18.2",
-        "chalk": "^2.4.1",
-        "compression": "1.7.1",
-        "cookie-parser": "1.4.3",
-        "cors": "2.8.4",
-        "dotenv": "^4.0.0",
-        "express": "4.16.2",
-        "express-custom-responses": "^1.0.0",
-        "express-winston": "^2.5.1",
-        "helmet": "3.9.0",
-        "http-errors": "^1.6.3",
-        "lodash": "4.17.4",
-        "mongoose": "5.0.0-rc1",
-        "ts-node": "^6.0.3"
+    "env": {
+      "jest": true,
+      "node": true
     },
-    "devDependencies": {
-        "@types/body-parser": "1.16.8",
-        "@types/cookie-parser": "1.4.1",
-        "@types/cors": "2.8.3",
-        "@types/express": "4.11.0",
-        "@types/mongoose": "4.7.32",
-        "@types/node": "8.5.5",
-        "nodemon": "1.14.7",
-        "tslint": "5.8.0",
-        "tslint-config-airbnb": "^5.8.0",
-        "typescript": "2.6.2"
-    }
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "printWidth": 90
+        }
+      ]
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "repository": "https://github.com/ChechaValerii/node-typescript-mongodb",
+  "license": "MIT"
 }
