@@ -52,9 +52,22 @@ root/
 To start the application in development mode, run:
 
 ```bash
+npm install -g nodemon
+npm install -g ts-node
+npm install -g typescript
 nodemon
 ```
+Express server listening on http://0.0.0.0:3000, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
+
+Create a user:
+
+```bash
+curl -X POST \
+  http://localhost:3000/v1/users \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'name=test&email=test%40gmail.com'
+```
 
 Then, start the application or deploy the files in `build` directory:
 ```
