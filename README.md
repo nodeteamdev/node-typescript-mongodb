@@ -75,6 +75,15 @@ curl -X POST \
   -d 'name=test&email=test%40gmail.com'
 ```
 
+Get a user:
+
+```bash
+curl -X GET \
+  'http://localhost:3000/v1/users?name=test&email=test%40gmail.com' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'name=checha1&email=checha1%40gmail.com'
+```
+
 Then, start the application or deploy the files in `build` directory:
 ```
 tsc

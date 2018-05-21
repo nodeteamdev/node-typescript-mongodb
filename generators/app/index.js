@@ -56,49 +56,4 @@ module.exports = class extends Generator {
       this.destinationPath(this.props.name + '/src/')
     );
   }
-
-  /*writing() {
-    const src = this.sourceRoot();
-    const dest = this.destinationPath(this.name);
-
-    const files = [
-      'package.json',
-      'README.md',
-      'gitignore',
-      'editorconfig',
-    ];
-
-    this.fs.copy(src, dest, null);
-    this.fs.copy(this.templatePath('.*'), dest, null);
-
-    const opts = {
-      name: this.name,
-      title: this.name,
-      description: this.description,
-      version: this.version,
-      apiRoot: this.apiRoot,
-    };
-
-    files.forEach(f => {
-      this.fs.copyTpl(
-        this.templatePath(f),
-        this.destinationPath(`${this.name}/${f}`),
-        opts
-      );
-    });
-
-    this.fs.move(
-      this.destinationPath(`${this.name}`, 'gitignore'),
-      this.destinationPath(`${this.name}`, '.gitignore')
-    );
-
-    this.fs.move(
-      this.destinationPath(`${this.name}`, 'editorconfig'),
-      this.destinationPath(`${this.name}`, '.editorconfig')
-    );
-  }*/
-
-  install() {
-    // this.installDependencies();
-  }
 };
