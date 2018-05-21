@@ -61,6 +61,7 @@ To start the application in development mode, run:
 npm install -g nodemon
 npm install -g ts-node
 npm install -g typescript
+npm install
 nodemon
 ```
 Express server listening on http://localhost:3000/, in development mode
