@@ -1,0 +1,55 @@
+{
+    "extends": "tslint-config-airbnb",
+    "rules": {
+        "max-line-length": [
+            true,
+            150
+        ],
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "ter-indent": [
+            true,
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "trailing-comma": [
+            false
+        ],
+        "ter-arrow-parens": [
+            true,
+            "always"
+        ],
+        "variable-name": [
+            false
+        ],
+        "import-name": [
+            false
+        ],
+        "newline-before-return": true,
+        "ter-newline-after-var": [
+            true,
+            "always"
+        ],
+        "no-unused-variable": true,
+        "align": [
+            false
+        ],
+        "no-parameter-reassignment": false,
+        "typedef": [
+            true,
+            "call-signature",
+            "arrow-call-signature",
+            "parameter",
+            //"arrow-parameter",
+            "property-declaration",
+            "variable-declaration",
+            "member-variable-declaration",
+            "object-destructuring",
+            "array-destructuring"
+        ]
+    }
+}

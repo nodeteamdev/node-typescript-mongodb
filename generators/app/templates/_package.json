@@ -1,0 +1,62 @@
+{
+    "name": "typescript-express-rest-api",
+    "version": "1.0.16",
+    "main": "./build/index.js",
+    "keywords": [
+        "yeoman-generator",
+        "typescript",
+        "node",
+        "nodejs",
+        "rest",
+        "restfull",
+        "api",
+        "builder",
+        "generator"
+    ],
+    "description": "This generator will help you to build your own Node.js Express Mongodb API using TypeScript.",
+    "author": "Checha Valerii <chechavalera@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ChechaValerii/node-typescript-mongodb/issues"
+    },
+    "homepage": "https://github.com/ChechaValerii/node-typescript-mongodb#readme",
+    "scripts": {
+        "server": "tsc && nodemon ./build/index.js",
+        "start": "node ./build/index.js",
+        "ts:watch": "tsc -w",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "files": [
+        "src"
+    ],
+    "dependencies": {
+        "bcrypt-nodejs": "^0.0.3",
+        "body-parser": "1.18.2",
+        "chalk": "^2.4.1",
+        "compression": "1.7.1",
+        "cookie-parser": "1.4.3",
+        "cors": "2.8.4",
+        "cron": "^1.3.0",
+        "dotenv": "^4.0.0",
+        "express": "4.16.2",
+        "express-custom-responses": "^1.0.0",
+        "express-winston": "^2.5.1",
+        "helmet": "3.9.0",
+        "http-errors": "^1.6.3",
+        "lodash": "4.17.4",
+        "mongoose": "5.0.0-rc1",
+        "ts-node": "^6.0.3"
+    },
+    "devDependencies": {
+        "@types/body-parser": "1.16.8",
+        "@types/cookie-parser": "1.4.1",
+        "@types/cors": "2.8.3",
+        "@types/express": "4.11.0",
+        "@types/mongoose": "4.7.32",
+        "@types/node": "8.5.5",
+        "nodemon": "1.14.7",
+        "tslint": "5.8.0",
+        "tslint-config-airbnb": "^5.8.0",
+        "typescript": "2.6.2"
+    }
+}
