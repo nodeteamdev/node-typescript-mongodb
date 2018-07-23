@@ -3,14 +3,13 @@ import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
-import ServerInterface from '../interfaces/ServerInterface';
-import * as express from 'express';
+import { IServer } from '../interfaces/ServerInterface';
 
 export default class Middleware {
-    static init(server: ServerInterface) :void {
+    static init(server: IServer): void {
 
         // express middleware
-        server.app.use(bodyParser.urlencoded({ extended: true }));
+        server.app.use(bodyParser.urlencoded({ extended: false }));
         server.app.use(bodyParser.json());
         server.app.use(cookieParser());
         server.app.use(compression());
@@ -18,7 +17,7 @@ export default class Middleware {
         server.app.use(cors());
 
         // cors
-        server.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+        server.app.use((req, res, next) => {
             res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
             res.header(
                 'Access-Control-Allow-Headers',
@@ -32,4 +31,3 @@ export default class Middleware {
         });
     }
 }
-

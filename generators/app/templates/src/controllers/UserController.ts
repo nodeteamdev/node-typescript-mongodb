@@ -2,6 +2,11 @@ import UserModel from '../models/UserModel';
 import * as express from 'express';
 
 class UserController {
+    /**
+     * @param  {express.Request} req
+     * @param  {express.Response} res
+     * @param  {express.NextFunction} next
+     */
     public getUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
         UserModel
             .findOne({
@@ -20,6 +25,11 @@ class UserController {
             });
     }
 
+    /**
+     * @param  {express.Request} req
+     * @param  {express.Response} res
+     * @param  {express.NextFunction} next
+     */
     public createUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
         UserModel
             .create({

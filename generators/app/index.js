@@ -27,22 +27,27 @@ module.exports = class extends Generator {
 
   writing() {
     this.fs.copyTpl(
-      this.templatePath('nodemon.json_t'),
+      this.templatePath('_nodemon.json'),
       this.destinationPath(this.props.name + '/nodemon.json')
     );
 
     this.fs.copyTpl(
-      this.templatePath('package.json_t'),
+      this.templatePath('_package.json'),
       this.destinationPath(this.props.name + '/package.json')
     );
 
     this.fs.copyTpl(
-      this.templatePath('tsconfig.json_t'),
+      this.templatePath('_tsconfig.json'),
       this.destinationPath(this.props.name + '/tsconfig.json')
     );
 
     this.fs.copyTpl(
-      this.templatePath('tslint.json_t'),
+      this.templatePath('_README.md'),
+      this.destinationPath(this.props.name + '/README.md')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('_tslint.json'),
       this.destinationPath(this.props.name + '/tslint.json')
     );
 

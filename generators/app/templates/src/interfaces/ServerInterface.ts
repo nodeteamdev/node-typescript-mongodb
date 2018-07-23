@@ -1,5 +1,5 @@
 import * as express from 'express';
 
-export default interface IServer {
+export interface IServer {
     app: express.Application;
 }

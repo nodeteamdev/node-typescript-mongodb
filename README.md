@@ -33,25 +33,32 @@ yo node-express-typescript-api
 ```
 root/
 ├── src
-|  ├──config
-|  |  ├──connection.ts
-|  |  ├──middleware.ts
-|  ├──controllers
-|  |  ├──UserController.ts
-|  ├──interfaces
-|  |  ├──ServerInterface.ts
-|  ├──models
-|  |  ├──UserModel.ts
-|  ├──router
-|  |  ├──routes.ts
-|  |  ├──UserRouter.ts
+│   ├── config
+│   │   ├── connection.ts
+│   │   ├── cron.ts
+│   │   └── middleware.ts
+│   ├── controllers
+│   │   └── UserController.ts
+│   ├── env
+│   │   ├── defaults.ts
+│   │   ├── development.ts
+│   │   ├── index.ts
+│   │   └── production.ts
+│   ├── index.ts
+│   ├── interfaces
+│   │   └── ServerInterface.ts
+│   ├── models
+│   │   └── UserModel.ts
+│   ├── router
+│   │   ├── UserRouter.ts
+│   │   └── routes.ts
+│   ├── server.ts
+│   └── serverHandlers.ts
+├── tsconfig.json
+├── LICENSE
 ├── nodemon.json
-├── node_modules/
-├── .editorconfig
-├── .tsconfig.json
-├── .tslint.json
+├── package-lock.json
 ├── package.json
-├── README.md
 ```
 ## Running the API
 ### Development
@@ -62,8 +69,27 @@ npm install -g nodemon
 npm install -g ts-node
 npm install -g typescript
 npm install
+```
+
+Start the application in dev env:
+```
 nodemon
 ```
+Start the application in production env:
+
+Install ts pm2 and typescript compiler:
+```
+npm install -g pm2
+pm2 install typescript
+```
+
+example start with scale on 2 core:
+```
+pm2 start ./src/index.ts -i 1 \
+    && sleep 1 \
+    && pm2 scale index 2 --no-daemon
+```
+
 Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
 
@@ -85,11 +111,8 @@ curl -X GET \
   -d 'name=checha1&email=checha1%40gmail.com'
 ```
 
-Then, start the application or deploy the files in `build` directory:
-```
-tsc
-npm start
-```
+v1.0.17
+>Added environment config, Cron jobs.
 
 ## Getting To Know Yeoman
 
