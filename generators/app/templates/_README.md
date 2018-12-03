@@ -31,8 +31,19 @@ yo node-express-typescript-api
 ```
 ## App skeleton
 ```
-root/
+.
+├── LICENSE
+├── _README.md
+├── nodemon.json
+├── package-lock.json
+├── package.json
 ├── src
+│   ├── client
+│   │   ├── css
+│   │   │   └── main.css
+│   │   ├── index.html
+│   │   └── js
+│   │       └── main.js
 │   ├── config
 │   │   ├── connection.ts
 │   │   ├── cron.ts
@@ -55,10 +66,7 @@ root/
 │   ├── server.ts
 │   └── serverHandlers.ts
 ├── tsconfig.json
-├── LICENSE
-├── nodemon.json
-├── package-lock.json
-├── package.json
+└── tslint.json
 ```
 ## Running the API
 ### Development

@@ -1,13 +1,16 @@
 import * as mongoose from 'mongoose';
 import { default as config } from '../env/index';
 
-interface connectOptions {
+/**
+ * @interface IConnectOptions
+ */
+interface IConnectOptions {
     autoReconnect: boolean;
     reconnectTries: number; // Never stop trying to reconnect
     reconnectInterval: number;
     loggerLevel?: string;
 }
-const connectOptions: connectOptions = {
+const connectOptions: IConnectOptions = {
     autoReconnect: true,
     reconnectTries: Number.MAX_VALUE,
     reconnectInterval: 1000
@@ -23,7 +26,7 @@ db.on('connecting', () => {
 });
 
 db.on('error', (error) => {
-    console.log('\x1b[31m', 'MongoDB :: connection' + error);
+    console.log('\x1b[31m', `MongoDB :: connection ${error}`);
     mongoose.disconnect();
 });
 

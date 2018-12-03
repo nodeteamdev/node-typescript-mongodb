@@ -1,2 +1,13 @@
 node_modules
 coverage
+logs
+*.log
+node_modules
+.DS_STORE
+.netbeans
+.idea
+.vscode
+.node_history
+.vscode
+build
+package-lock.json

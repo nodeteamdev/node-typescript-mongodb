@@ -3,9 +3,10 @@ import * as express from 'express';
 
 class UserController {
     /**
-     * @param  {express.Request} req
-     * @param  {express.Response} res
-     * @param  {express.NextFunction} next
+     * @param {express.Request} req
+     * @param {express.Response} res
+     * @param {express.NextFunction} next
+     * @memberof UserController
      */
     public getUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
         UserModel
@@ -26,9 +27,10 @@ class UserController {
     }
 
     /**
-     * @param  {express.Request} req
-     * @param  {express.Response} res
-     * @param  {express.NextFunction} next
+     * @param {express.Request} req
+     * @param {express.Response} res
+     * @param {express.NextFunction} next
+     * @memberof UserController
      */
     public createUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
         UserModel

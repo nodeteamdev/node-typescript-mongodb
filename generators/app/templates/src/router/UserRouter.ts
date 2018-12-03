@@ -1,6 +1,8 @@
 import UserController from '../controllers/UserController';
 import { Router } from 'express';
+
 /**
+ * @export
  * @class UserRouter
  */
 export default class UserRouter {
@@ -11,6 +13,9 @@ export default class UserRouter {
         this.routes();
     }
 
+    /**
+     * @memberof UserRouter
+     */
     public routes(): void {
         this.router.get('/', UserController.getUser);
         this.router.post('/', UserController.createUser);

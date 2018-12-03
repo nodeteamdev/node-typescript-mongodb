@@ -1,4 +1,4 @@
-# Node.js Express API with TypeScript
+# Node.js Express API with TypeScript 3
 
 
 ![CircleCI branch](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser/master.svg?style=flat-square)
@@ -6,10 +6,10 @@
 ![Plugin on redmine.org](https://img.shields.io/redmine/plugin/stars/redmine_xlsx_format_issue_exporter.svg?style=flat-square)
 ![onix](https://img.shields.io/badge/onix-systems-blue.svg)
 
-> Node.js Express API with TypeScript. Supports MongoDB
+> Node.js Express API with TypeScript 3. Supports MongoDB
 
 ## Description
-This generator will help you to build your own Node.js Express Mongodb API using TypeScript.
+This generator will help you to build your own Node.js Express Mongodb API using TypeScript 3.
 
 ### Project Introduction
 - suppot ES6/ES7 features
@@ -31,8 +31,19 @@ yo node-express-typescript-api
 ```
 ## App skeleton
 ```
-root/
+.
+├── LICENSE
+├── _README.md
+├── nodemon.json
+├── package-lock.json
+├── package.json
 ├── src
+│   ├── client
+│   │   ├── css
+│   │   │   └── main.css
+│   │   ├── index.html
+│   │   └── js
+│   │       └── main.js
 │   ├── config
 │   │   ├── connection.ts
 │   │   ├── cron.ts
@@ -55,10 +66,7 @@ root/
 │   ├── server.ts
 │   └── serverHandlers.ts
 ├── tsconfig.json
-├── LICENSE
-├── nodemon.json
-├── package-lock.json
-├── package.json
+└── tslint.json
 ```
 ## Running the API
 ### Development
@@ -112,7 +120,7 @@ curl -X GET \
 ```
 
 v1.0.17
->Added environment config, Cron jobs.
+>Added: environment config, Cron jobs.
 
 ## Getting To Know Yeoman
 
@@ -123,3 +131,8 @@ v1.0.17
 
 [travis-image]: https://travis-ci.org/caiobsouza/generator-ts-node-api.svg?branch=master
 [travis-url]: https://travis-ci.org/caiobsouza/generator-ts-node-api
+
+v1.0.18
+> Added: static folder to middleware
+> Added: render EJS config
+> Added: index page (login) 

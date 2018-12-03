@@ -4,6 +4,7 @@ import Middleware from './config/middleware';
 import Cron from './config/cron';
 
 /**
+ * @export
  * @class Server
  */
 export class Server {
