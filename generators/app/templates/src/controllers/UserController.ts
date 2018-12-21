@@ -1,6 +1,11 @@
+import { HttpError } from './../error/index';
 import UserModel from '../models/UserModel';
 import * as express from 'express';
+import * as Joi from 'joi';
 
+/**
+ * @class UserController
+ */
 class UserController {
     /**
      * @param {express.Request} req
@@ -9,20 +14,26 @@ class UserController {
      * @memberof UserController
      */
     public getUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
+        const schema: Joi.Schema = Joi.object({
+            name: Joi.string().required(),
+            email: Joi.string().email({ minDomainAtoms: 2 }).required()
+        });
+
+        const validate: Joi.ValidationResult<{ name: string, email: string }> = Joi.validate(req.query, schema);
+
+        if (validate.error) {
+            return next(new HttpError(400, validate.error.message));
+        }
+
         UserModel
-            .findOne({
-                name: req.query.name,
-                email: req.query.email
-            })
+            .findOne(req.query)
             .then((data) => {
-                res.status(200).json({ data });
+                res.status(200).json({
+                    data
+                });
             })
             .catch((error: Error) => {
-                res.status(500).json({
-                    error: error.message,
-                    errorStack: error.stack
-                });
-                next(error);
+                next(new HttpError(500, error.message));
             });
     }
 
@@ -33,20 +44,26 @@ class UserController {
      * @memberof UserController
      */
     public createUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
+        const schema: Joi.Schema = Joi.object({
+            name: Joi.string().required(),
+            email: Joi.string().email({ minDomainAtoms: 2 }).required()
+        });
+
+        const validate: Joi.ValidationResult<{ name: string, email: string }> = Joi.validate(req.query, schema);
+
+        if (validate.error) {
+            return next(new HttpError(400, validate.error.message));
+        }
+
         UserModel
-            .create({
-                name: req.body.name,
-                email: req.body.email
-            })
+            .create(req.query)
             .then((data) => {
-                res.status(200).json({ data });
+                res.status(200).json({
+                    data
+                });
             })
             .catch((error: Error) => {
-                res.status(500).json({
-                    error: error.message,
-                    errorStack: error.stack
-                });
-                next(error);
+                next(new HttpError(500, error.message));
             });
     }
 }

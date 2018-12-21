@@ -8,6 +8,10 @@ import { Router } from 'express';
 export default class UserRouter {
     public router: Router;
 
+    /**
+     * Creates an instance of UserRouter.
+     * @memberof UserRouter
+     */
     constructor() {
         this.router = Router();
         this.routes();

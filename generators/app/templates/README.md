@@ -1,4 +1,4 @@
-# Node.js Express API with TypeScript
+# Node.js Express API with TypeScript 3
 
 
 ![CircleCI branch](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser/master.svg?style=flat-square)
@@ -6,10 +6,10 @@
 ![Plugin on redmine.org](https://img.shields.io/redmine/plugin/stars/redmine_xlsx_format_issue_exporter.svg?style=flat-square)
 ![onix](https://img.shields.io/badge/onix-systems-blue.svg)
 
-> Node.js Express API with TypeScript. Supports MongoDB
+> Node.js Express API with TypeScript 3. Supports MongoDB
 
 ## Description
-This generator will help you to build your own Node.js Express Mongodb API using TypeScript.
+This generator will help you to build your own Node.js Express Mongodb API using TypeScript 3.
 
 ### Project Introduction
 - suppot ES6/ES7 features
@@ -33,7 +33,7 @@ yo node-express-typescript-api
 ```
 .
 ├── LICENSE
-├── _README.md
+├── README.md
 ├── nodemon.json
 ├── package-lock.json
 ├── package.json
@@ -41,7 +41,8 @@ yo node-express-typescript-api
 │   ├── client
 │   │   ├── css
 │   │   │   └── main.css
-│   │   ├── index.html
+│   │   ├── error.ejs
+│   │   ├── index.ejs
 │   │   └── js
 │   │       └── main.js
 │   ├── config
@@ -55,6 +56,9 @@ yo node-express-typescript-api
 │   │   ├── development.ts
 │   │   ├── index.ts
 │   │   └── production.ts
+│   ├── error
+│   │   ├── index.ts
+│   │   └── sendHttpError.ts
 │   ├── index.ts
 │   ├── interfaces
 │   │   └── ServerInterface.ts
@@ -120,7 +124,7 @@ curl -X GET \
 ```
 
 v1.0.17
->Added environment config, Cron jobs.
+>Added: environment config, Cron jobs.
 
 ## Getting To Know Yeoman
 
@@ -131,3 +135,19 @@ v1.0.17
 
 [travis-image]: https://travis-ci.org/caiobsouza/generator-ts-node-api.svg?branch=master
 [travis-url]: https://travis-ci.org/caiobsouza/generator-ts-node-api
+
+v1.0.18
+> Added: static folder to middleware;
+
+> Added: render EJS config
+
+> Added: index page (login)
+
+v1.1.0
+
+> Handle errors:
+    - render html if browser request.
+    - send json when ajax.
+
+> Added: Joi
+    - Object schema description language and validator for JavaScript objects.

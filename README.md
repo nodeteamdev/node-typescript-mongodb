@@ -33,7 +33,7 @@ yo node-express-typescript-api
 ```
 .
 ├── LICENSE
-├── _README.md
+├── README.md
 ├── nodemon.json
 ├── package-lock.json
 ├── package.json
@@ -41,7 +41,8 @@ yo node-express-typescript-api
 │   ├── client
 │   │   ├── css
 │   │   │   └── main.css
-│   │   ├── index.html
+│   │   ├── error.ejs
+│   │   ├── index.ejs
 │   │   └── js
 │   │       └── main.js
 │   ├── config
@@ -55,6 +56,9 @@ yo node-express-typescript-api
 │   │   ├── development.ts
 │   │   ├── index.ts
 │   │   └── production.ts
+│   ├── error
+│   │   ├── index.ts
+│   │   └── sendHttpError.ts
 │   ├── index.ts
 │   ├── interfaces
 │   │   └── ServerInterface.ts
@@ -133,6 +137,17 @@ v1.0.17
 [travis-url]: https://travis-ci.org/caiobsouza/generator-ts-node-api
 
 v1.0.18
-> Added: static folder to middleware
+> Added: static folder to middleware;
+
 > Added: render EJS config
-> Added: index page (login) 
+
+> Added: index page (login)
+
+v1.1.0
+
+> Handle errors:
+    - render html if browser request.
+    - send json when ajax.
+
+> Added: Joi
+    - Object schema description language and validator for JavaScript objects.

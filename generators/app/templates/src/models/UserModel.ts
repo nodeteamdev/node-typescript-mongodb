@@ -1,5 +1,5 @@
 import * as connections from '../config/connection';
-import { Schema, Document } from 'mongoose';
+import { Schema, Document, Types } from 'mongoose';
 
 /**
  * @export
@@ -7,6 +7,7 @@ import { Schema, Document } from 'mongoose';
  * @extends {Document}
  */
 export interface IUserModel extends Document {
+    _id: Types.ObjectId;
     createdAt ? : Date;
     updatedAt ? : Date;
     name: string;

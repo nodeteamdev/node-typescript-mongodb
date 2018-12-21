@@ -19,7 +19,7 @@ server.listen(port);
 // server handlers
 server.on(
     'error',
-    (error) => serverHandlers.onError(error, port));
+    (error: Error) => serverHandlers.onError(error, port));
 server.on(
     'listening',
     serverHandlers.onListening.bind(server));

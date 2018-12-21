@@ -21,7 +21,7 @@ export function normalizePort(val: number | string): number | string | boolean {
 /**
  * @param  {NodeJS.ErrnoException} error
  * @param  {number|string|boolean} port
- * @returns throwerror
+ * @returns throw error
  */
 export function onError(error: NodeJS.ErrnoException, port: number | string | boolean): void {
     if (error.syscall !== 'listen') {
