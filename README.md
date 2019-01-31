@@ -15,6 +15,14 @@ This generator will help you to build your own Node.js Express Mongodb API using
 - suppot ES6/ES7 features
 - using tslint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
+
+## Requirements
+
+- node >= 10
+- npm >= 6
+- mongodb >= 3.0
+- typescript >= 3.0
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-node-express-typescript-api using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
@@ -35,40 +43,49 @@ yo node-express-typescript-api
 ├── LICENSE
 ├── README.md
 ├── nodemon.json
-├── package-lock.json
 ├── package.json
 ├── src
-│   ├── client
-│   │   ├── css
-│   │   │   └── main.css
-│   │   ├── error.ejs
-│   │   ├── index.ejs
-│   │   └── js
-│   │       └── main.js
-│   ├── config
-│   │   ├── connection.ts
-│   │   ├── cron.ts
-│   │   └── middleware.ts
-│   ├── controllers
-│   │   └── UserController.ts
-│   ├── env
-│   │   ├── defaults.ts
-│   │   ├── development.ts
-│   │   ├── index.ts
-│   │   └── production.ts
-│   ├── error
-│   │   ├── index.ts
-│   │   └── sendHttpError.ts
-│   ├── index.ts
-│   ├── interfaces
-│   │   └── ServerInterface.ts
-│   ├── models
-│   │   └── UserModel.ts
-│   ├── router
-│   │   ├── UserRouter.ts
-│   │   └── routes.ts
-│   ├── server.ts
-│   └── serverHandlers.ts
+│   ├── api
+│   │   ├── config
+│   │   │   ├── connection
+│   │   │   │   └── connection.ts
+│   │   │   ├── cron
+│   │   │   │   └── cron.ts
+│   │   │   ├── env
+│   │   │   │   ├── defaults.ts
+│   │   │   │   ├── development.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   └── production.ts
+│   │   │   ├── error
+│   │   │   │   ├── index.ts
+│   │   │   │   └── sendHttpError.ts
+│   │   │   ├── middleware
+│   │   │   │   └── middleware.ts
+│   │   │   ├── router
+│   │   │   │   ├── UserRouter.ts
+│   │   │   │   └── routes.ts
+│   │   │   └── server
+│   │   │       ├── index.ts
+│   │   │       ├── server.ts
+│   │   │       └── serverHandlers.ts
+│   │   ├── controllers
+│   │   │   └── UserController.ts
+│   │   ├── interfaces
+│   │   │   ├── IUserService.ts
+│   │   │   └── ServerInterface.ts
+│   │   ├── models
+│   │   │   └── UserModel.ts
+│   │   └── services
+│   │       └── UserService
+│   │           ├── UserService.ts
+│   │           └── UserValidation.ts
+│   └── client
+│       ├── css
+│       │   └── main.css
+│       ├── error.ejs
+│       ├── index.ejs
+│       └── js
+│           └── main.js
 ├── tsconfig.json
 └── tslint.json
 ```
@@ -110,31 +127,43 @@ Create a user:
 ```bash
 curl -X POST \
   http://localhost:3000/v1/users \
-  -H 'content-type: application/x-www-form-urlencoded' \
-  -d 'name=test&email=test%40gmail.com'
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"email": "test@gmail.com",
+	"name": "test name"
+}'
 ```
 
-Get a user:
+Get all users:
 
 ```bash
 curl -X GET \
-  'http://localhost:3000/v1/users?name=test&email=test%40gmail.com' \
-  -H 'content-type: application/x-www-form-urlencoded' \
-  -d 'name=checha1&email=checha1%40gmail.com'
+  http://localhost:3000/v1/users \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache'
+```
+
+Get specific user by ID:
+
+```bash
+curl -X GET \
+  http://localhost:3000/v1/users/:id \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache'
+```
+
+Delete specific user by ID:
+
+```bash
+curl -X DELETE \
+  http://localhost:3000/v1/users/:id \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache'
 ```
 
 v1.0.17
 >Added: environment config, Cron jobs.
-
-## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
-
-[travis-image]: https://travis-ci.org/caiobsouza/generator-ts-node-api.svg?branch=master
-[travis-url]: https://travis-ci.org/caiobsouza/generator-ts-node-api
 
 v1.0.18
 > Added: static folder to middleware;
@@ -146,8 +175,19 @@ v1.0.18
 v1.1.0
 
 > Handle errors:
-    - render html if browser request.
-    - send json when ajax.
+> * render html if browser request.
+> * send json when ajax.
 
 > Added: Joi
-    - Object schema description language and validator for JavaScript objects.
+> Object schema description language and validator for JavaScript objects.
+
+
+## Getting To Know Yeoman
+
+ * Yeoman has a heart of gold.
+ * Yeoman is a person with feelings and opinions, but is very easy to work with.
+ * Yeoman can be too opinionated at times but is easily convinced not to be.
+ * Feel free to [learn more about Yeoman](http://yeoman.io/).
+
+[travis-image]: https://travis-ci.org/caiobsouza/generator-ts-node-api.svg?branch=master
+[travis-url]: https://travis-ci.org/caiobsouza/generator-ts-node-api

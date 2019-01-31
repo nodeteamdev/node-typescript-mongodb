@@ -4,7 +4,7 @@
         "jsx": "react",
         "module": "commonjs",
         "noImplicitAny": true,
-        "target": "es5",
+        "target": "es6",
         "sourceMap": true,
         "plugins": [
             {
