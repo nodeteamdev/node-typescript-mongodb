@@ -1,5 +1,7 @@
 import * as connections from '../config/connection/connection';
 import { Document, Schema, Types } from 'mongoose';
+import * as bcrypt from 'bcrypt-nodejs';
+import * as crypto from 'crypto';
 
 /**
  * @export
@@ -7,39 +9,84 @@ import { Document, Schema, Types } from 'mongoose';
  * @extends {Document}
  */
 export interface IUserModel extends Document {
-    _id: Types.ObjectId;
-    createdAt ? : Date;
-    updatedAt ? : Date;
-    name: string;
     email: string;
+    password: string;
+    passwordResetToken: string;
+    passwordResetExpires: Date;
+
+    facebook: string;
+    tokens: AuthToken[];
+
+    profile: {
+        name: string,
+        gender: string,
+        location: string,
+        website: string,
+        picture: string
+    };
+    comparePassword: comparePasswordFunction;
+    gravatar: (size: number) => string;
 }
 
+type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
+
+export type AuthToken = {
+    accessToken: string,
+    kind: string
+};
+
 const UserSchema: Schema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
-        required: true
-    }
+        unique: true,
+        trim: true
+    },
+    password: String,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+    tokens: Array,
 }, {
-    collection: 'usermodel',
-    versionKey: false
-}).pre('save', (next) => {
-    // this will run before saving
-    if (this._doc) {
-        const doc: IUserModel = this._doc;
-        const now: Date = new Date();
+        collection: 'usermodel',
+        versionKey: false
+    }).pre('save', function (next: any): any {
+        const user: any = this; // tslint:disable-line
 
-        if (!doc.createdAt) {
-            doc.createdAt = now;
-        }
-        doc.updatedAt = now;
+        if (!user.isModified('password')) { return next(); }
+
+        bcrypt.genSalt(10, (err: any, salt: any) => {
+            if (err) { return next(err); }
+
+            bcrypt.hash(user.password, salt, undefined, (err: any, hash: any) => {
+                if (err) { return next(err); }
+
+                user.password = hash;
+                next();
+            });
+        });
+    });
+
+const comparePassword: any = function (candidatePassword: any, cb: any): any {
+    bcrypt.compare(candidatePassword, this.password, (err: any, isMatch: boolean) => {
+        cb(err, isMatch);
+    });
+};
+
+UserSchema.methods.comparePassword = comparePassword;
+
+/**
+ * Helper method for getting user's gravatar.
+ */
+UserSchema.methods.gravatar = function (size: number): any {
+    if (!size) {
+        size = 200;
     }
-    next();
+    if (!this.email) {
+        return `https://gravatar.com/avatar/?s=${size}&d=retro`;
+    }
+    const md5: any = crypto.createHash('md5').update(this.email).digest('hex');
 
-    return this;
-});
+    return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
+};
 
-export default connections.db.model < IUserModel > ('UserModel', UserSchema);
+
+export default connections.db.model<IUserModel>('UserModel', UserSchema);

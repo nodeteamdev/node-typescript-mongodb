@@ -1,31 +1,36 @@
-import UserController from '../../controllers/UserController';
+import * as UserController from '../../controllers/UserController';
 import { Router } from 'express';
 
 /**
- * @export
- * @class UserRouter
+ * @constant {express.Router}
  */
-class UserRouter {
-    public router: Router;
+const router: Router = Router();
 
-    /**
-     * Creates an instance of UserRouter.
-     * @memberof UserRouter
-     */
-    constructor() {
-        this.router = Router();
-        this.routes();
-    }
+/**
+ * GET method route
+ * @example http://localhost:PORT/v1/users
+ */
+router.get('/', UserController.findAll);
 
-    /**
-     * @memberof UserRouter
-     */
-    public routes(): void {
-        this.router.get('/', UserController.findAll.bind(UserController));
-        this.router.get('/:id', UserController.find.bind(UserController));
-        this.router.post('/', UserController.create.bind(UserController));
-        this.router.delete('/:id', UserController.delete.bind(UserController));
-    }
-}
+/**
+ * POST method route
+ * @example http://localhost:PORT/v1/users
+ */
+router.post('/', UserController.create);
 
-export default new UserRouter();
+/**
+ * GET method route 
+ * @example http://localhost:PORT/v1/users/:id
+ */
+router.get('/:id', UserController.findOne);
+
+/**
+ * DELETE method route
+ * @example  http://localhost:PORT/v1/users/:id
+ */
+router.delete('/:id', UserController.remove);
+
+/**
+ * @export {express.Router}
+ */
+export default router;

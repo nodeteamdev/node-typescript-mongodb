@@ -1,24 +1,6 @@
 import * as debug from 'debug';
 
 /**
- * @export
- * @param {(number | string)} val
- * @returns {(number | string | boolean)}
- */
-export function normalizePort(val: number | string): number | string | boolean {
-    const port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
-
-    if (isNaN(port)) {
-        return val;
-    }
-    if (port >= 0) {
-        return port;
-    }
-
-    return false;
-}
-
-/**
  * @param  {NodeJS.ErrnoException} error
  * @param  {number|string|boolean} port
  * @returns throw error
@@ -47,7 +29,7 @@ export function onError(error: NodeJS.ErrnoException, port: number | string | bo
 }
 
 /**
- * @export
+ * @export onListening
  */
 export function onListening(): void {
     const addr: any = this.address();

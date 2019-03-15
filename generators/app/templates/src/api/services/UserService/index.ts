@@ -1,34 +1,33 @@
 import * as Joi from 'joi';
 import UserModel, { IUserModel } from '../../models/UserModel';
-import UserValidation from './UserValidation';
-import { IUserService } from '../../interfaces/IUserService';
+import UserValidation from './validation';
+// import { IUserService } from '../../interfaces/IUserService';
+import { IUserService } from './interface';
 import { Types } from 'mongoose';
 
 /**
  * @export
- * @class UserService
  * @implements {IUserModelService}
  */
-class UserService implements IUserService {
-
+const UserService: IUserService =  {
     /**
      * @returns {Promise < IUserModel[] >}
      * @memberof UserService
      */
-    async FindAll(): Promise < IUserModel[] > {
+    async findAll(): Promise < IUserModel[] > {
         try {
             return await UserModel.find({});
         } catch (error) {
             throw new Error(error.message);
         }
-    }
+    },
 
     /**
      * @param {string} id
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async Find(id: string): Promise < IUserModel > {
+    async findOne(id: string): Promise < IUserModel > {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
@@ -46,14 +45,14 @@ class UserService implements IUserService {
         } catch (error) {
             throw new Error(error.message);
         }
-    }
+    },
 
     /**
      * @param {IUserModel} user
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async Insert(body: IUserModel): Promise < IUserModel > {
+    async insert(body: IUserModel): Promise < IUserModel > {
         try {
             const validate: Joi.ValidationResult < IUserModel > = UserValidation.createUser(body);
 
@@ -67,18 +66,18 @@ class UserService implements IUserService {
         } catch (error) {
             throw new Error(error.message);
         }
-    }
+    },
 
     /**
      * @param {string} id
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async Delete(id: string): Promise < IUserModel > {
+    async remove(id: string): Promise < IUserModel > {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
-            } > = UserValidation.deleteUser({
+            }> = UserValidation.removeUser({
                 id
             });
 
@@ -95,6 +94,6 @@ class UserService implements IUserService {
             throw new Error(error.message);
         }
     }
-}
+};
 
-export default new UserService();
+export default UserService;

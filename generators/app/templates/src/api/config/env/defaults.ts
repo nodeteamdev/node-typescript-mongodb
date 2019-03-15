@@ -4,7 +4,8 @@ const config: any = {
     env: 'development',
     database: {
         client: 'mongodb'
-    }
+    },
+    secret: '@QEGTUI'
 };
 
 // Set the current environment or default to 'development'

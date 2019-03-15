@@ -6,7 +6,7 @@ import { Types } from 'mongoose';
  * @export
  * @class JoiSchema
  */
-class UserValidation {
+class AuthValidation {
     customJoi: any;
 
     /**
@@ -56,7 +56,7 @@ class UserValidation {
         params: IUserModel
     ): Joi.ValidationResult < IUserModel > {
         const schema: Joi.Schema = Joi.object().keys({
-            name: Joi.string().required(),
+            password: Joi.string().required(),
             email: Joi.string().email({
                 minDomainAtoms: 2
             }).required()
@@ -65,45 +65,6 @@ class UserValidation {
         return Joi.validate(params, schema);
     }
 
-    /**
-     * @param {{ id: string }} body
-     * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof UserValidation
-     */
-    getUser(
-        body: {
-            id: string
-        }
-    ): Joi.ValidationResult < {
-        id: string
-    } > {
-        const schema: Joi.Schema = Joi.object().keys({
-            id: this.customJoi.objectId().required()
-        });
-
-
-        return Joi.validate(body, schema);
-    }
-
-    /**
-     * @param {{ id: string }} body
-     * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof UserValidation
-     */
-    deleteUser(
-        body: {
-            id: string
-        }
-    ): Joi.ValidationResult < {
-        id: string
-    } > {
-        const schema: Joi.Schema = Joi.object().keys({
-            id: this.customJoi.objectId().required()
-        });
-
-
-        return Joi.validate(body, schema);
-    }
 }
 
-export default new UserValidation();
+export default new AuthValidation();

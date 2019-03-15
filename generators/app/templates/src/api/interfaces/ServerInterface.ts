@@ -3,14 +3,6 @@ import { HttpError } from '../config/error/index';
 
 /**
  * @export
- * @interface IServer
- */
-export interface IServer {
-    app: express.Application;
-}
-
-/**
- * @export
  * @interface IConnectOptions
  */
 export interface IConnectOptions {

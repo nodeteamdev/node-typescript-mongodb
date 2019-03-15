@@ -1,5 +1,5 @@
-import { Response, Request, NextFunction } from 'express';
 import * as http from 'http';
+import { NextFunction, Request, Response } from 'express';
 
 /**
  * @export
@@ -17,7 +17,7 @@ export class HttpError extends Error {
      * @param {string} [message]
      * @memberof HttpError
      */
-    constructor(status?: number, message?: string) {
+    constructor(status ? : number, message ? : string) {
         super(message);
 
         Error.captureStackTrace(this, this.constructor);
@@ -41,7 +41,9 @@ export class HttpError extends Error {
             return next(error);
         }
         res.status(500);
-        res.render('error.ejs', { error });
+        res.render('error.ejs', {
+            error
+        });
     }
 }
 

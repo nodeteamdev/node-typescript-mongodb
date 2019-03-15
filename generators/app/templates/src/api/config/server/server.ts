@@ -1,27 +1,34 @@
 import * as express from 'express';
-import Routes from '../router/routes';
-import Middleware from '../middleware/middleware';
-import Cron from '../cron/cron';
+import * as Routes from '../router/routes';
+import * as Middleware from '../middleware/middleware';
+import * as Passport from '../middleware/passport';
 
 /**
- * @export
- * @class Server
+ * @constant {express.Application}
  */
-export class Server {
-    // set app to be of type express.Application
-    public app: express.Application;
+const app: express.Application = express();
 
-    /**
-     * Creates an instance of Server.
-     * @memberof Server
-     */
-    constructor() {
-        this.app = express();
-        Cron.init();
-        Middleware.init(this);
-        Routes.init(this);
-        Middleware.initErrorHandler(this);
-    }
-}
+/** 
+ * @constructs express.Application Middleware
+ */
+Middleware.configure(app);
 
-export default new Server().app;
+/**
+ * @constructs express.Application Routes
+ */
+Routes.init(app);
+
+/**
+ * @constructs express.Application Error Handler
+ */
+Middleware.initErrorHandler(app);
+
+/**
+ * sets port 3000 to default or unless otherwise specified in the environment
+ */
+app.set('port', process.env.PORT || 3000);
+
+/**
+ * @exports {express.Application}
+ */
+export default app;
