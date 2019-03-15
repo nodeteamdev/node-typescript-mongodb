@@ -81,7 +81,6 @@ class UserValidation {
             id: this.customJoi.objectId().required()
         });
 
-
         return Joi.validate(body, schema);
     }
 
@@ -90,7 +89,7 @@ class UserValidation {
      * @returns {Joi.ValidationResult<{ id: string }>}
      * @memberof UserValidation
      */
-    deleteUser(
+    removeUser(
         body: {
             id: string
         }
@@ -100,7 +99,6 @@ class UserValidation {
         const schema: Joi.Schema = Joi.object().keys({
             id: this.customJoi.objectId().required()
         });
-
 
         return Joi.validate(body, schema);
     }
