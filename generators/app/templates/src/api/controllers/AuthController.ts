@@ -4,7 +4,6 @@ import AuthService from '../services/AuthService';
 import { NextFunction, Request, Response } from 'express';
 import HttpError from '../config/error';
 
-
 /**
  * @export
  * @param {Request} req 
@@ -12,7 +11,6 @@ import HttpError from '../config/error';
  * @param {NextFunction} next 
  * @returns {Promise < void >}
  */
-
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         const user: IUserModel = await AuthService.createUser(req.body);
@@ -21,7 +19,6 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
             if (err) {
                 return next(err);
             }
-            console.log('everything ok');
             res.redirect('/');
         });
 
@@ -30,7 +27,6 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         if (error.code === 500) {
             return next(new HttpError(error.message.status, error.message));
         }
-        console.log('ERROR_AUTH_CONTROLLER:', error);
         res.json({
             status: 400,
             message: error.message
@@ -48,8 +44,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
  * @returns {Promise < void >}
  */
 export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
-    passport.authenticate('local', (err: Error, user: any, info: any) => {
-        console.log('passportUser:', user);
+    passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
             return next(err);
         }

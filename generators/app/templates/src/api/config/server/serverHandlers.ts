@@ -29,10 +29,19 @@ export function onError(error: NodeJS.ErrnoException, port: number | string | bo
 }
 
 /**
+ * @interface IonListening
+ */
+interface IonListening {
+    port: number;
+    address: string;
+    family: string;
+}
+
+/**
  * @export onListening
  */
 export function onListening(): void {
-    const addr: any = this.address();
+    const addr: IonListening | string  = this.address();
     const bind: string = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
 
     debug(`Listening on ${bind}`);

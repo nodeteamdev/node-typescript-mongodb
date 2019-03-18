@@ -12,10 +12,11 @@ import { CustomResponse } from '../../interfaces/ServerInterface';
 import { HttpError } from '../error/index';
 import { renderFile } from 'ejs';
 import { sendHttpErrorModule } from '../error/sendHttpError';
-import { default as config } from '../env/index';
+// import * as dotenv from 'dotenv';
+import config from '../env/index';
 
-const MongoStore: any = mongo(session);
-
+// dotenv.config();
+const MongoStore: mongo.MongoStoreFactory = mongo(session);
 /**
  * @export
  * @param {express.Application} app
@@ -47,7 +48,7 @@ export function configure(app: express.Application): void {
         secret: config.secret,
         name: 'api.sid',
         store: new MongoStore({
-            url: `${config.envConfig.database.MONGODB_URI}${config.envConfig.database.MONGODB_DB_MAIN}`,
+            url: `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`,
             autoReconnect: true
         })
     }));

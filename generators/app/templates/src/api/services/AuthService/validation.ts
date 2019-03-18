@@ -1,52 +1,21 @@
 import * as Joi from 'joi';
 import { IUserModel } from '../../models/UserModel';
-import { Types } from 'mongoose';
+import Validation from '../validation';
 
 /**
  * @export
- * @class JoiSchema
+ * @class AuthValidation
+ * @extends Validation
  */
-class AuthValidation {
-    customJoi: any;
+class AuthValidation extends Validation {
 
-    /**
-     * @static
-     * @type {string}
-     * @memberof JoiSchema
-     */
-    readonly messageObjectId: string =
-        'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters';
-
-    /**
-     * Creates an instance of Schema.
-     * @memberof JoiSchema
+     /**
+     * Creates an instance of AuthValidation.
+     * @memberof AuthValidation
      */
     constructor() {
-        this.customJoi = Joi.extend({
-            name: 'objectId',
-            language: {
-                base: this.messageObjectId
-            },
-            pre(
-                value: any,
-                state: Joi.State,
-                options: Joi.ValidationOptions
-            ): any {
-                if (!Types.ObjectId.isValid(value)) {
-                    return this.createError(
-                        'objectId.base', {
-                            value
-                        },
-                        state,
-                        options
-                    );
-                }
-
-                return value; // Keep the value as it was
-            }
-        });
+        super();
     }
-
     /**
      * @param {IUserModel} params
      * @returns {Joi.ValidationResult<IUserModel >}

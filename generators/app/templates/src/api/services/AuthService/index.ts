@@ -1,7 +1,6 @@
 import * as Joi from 'joi';
 import UserModel, { IUserModel } from '../../models/UserModel';
 import AuthValidation from './validation';
-import { Types } from 'mongoose';
 import { IAuthService } from './interface';
 
 /**
@@ -10,7 +9,6 @@ import { IAuthService } from './interface';
  */
 
 const AuthService: IAuthService = {
-
     /**
      * @param {IUserModel} body
      * @returns {Promise <IUserModel>}
@@ -39,7 +37,6 @@ const AuthService: IAuthService = {
         } catch (error) {
             throw new Error(error);
         }
-
     }
 };
 

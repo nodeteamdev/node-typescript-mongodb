@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { default as config } from '../env/index';
+import config from '../env/index';
 import { IConnectOptions } from '../../interfaces/ServerInterface';
 
 const connectOptions: IConnectOptions = {
@@ -8,7 +8,7 @@ const connectOptions: IConnectOptions = {
     reconnectInterval: 1000
 };
 
-const MONGO_URI: string = `${config.envConfig.database.MONGODB_URI}${config.envConfig.database.MONGODB_DB_MAIN}`;
+const MONGO_URI: string = `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`;
 
 export const db: mongoose.Connection = mongoose.createConnection(MONGO_URI, connectOptions);
 
