@@ -45,47 +45,42 @@ yo node-express-typescript-api
 ├── nodemon.json
 ├── package.json
 ├── src
-│   ├── api
-│   │   ├── config
-│   │   │   ├── connection
-│   │   │   │   └── connection.ts
-│   │   │   ├── cron
-│   │   │   │   └── cron.ts
-│   │   │   ├── env
-│   │   │   │   ├── defaults.ts
-│   │   │   │   ├── development.ts
-│   │   │   │   ├── index.ts
-│   │   │   │   └── production.ts
-│   │   │   ├── error
-│   │   │   │   ├── index.ts
-│   │   │   │   └── sendHttpError.ts
-│   │   │   ├── middleware
-│   │   │   │   └── middleware.ts
-│   │   │   ├── router
-│   │   │   │   ├── UserRouter.ts
-│   │   │   │   └── routes.ts
-│   │   │   └── server
-│   │   │       ├── index.ts
-│   │   │       ├── server.ts
-│   │   │       └── serverHandlers.ts
-│   │   ├── controllers
-│   │   │   └── UserController.ts
-│   │   ├── interfaces
-│   │   │   ├── IUserService.ts
-│   │   │   └── ServerInterface.ts
-│   │   ├── models
-│   │   │   └── UserModel.ts
-│   │   └── services
-│   │       └── UserService
-│   │           ├── UserService.ts
-│   │           └── UserValidation.ts
-│   └── client
-│       ├── css
-│       │   └── main.css
-│       ├── error.ejs
-│       ├── index.ejs
-│       └── js
-│           └── main.js
+│   ├── components
+│   │   ├── Auth
+│   │   │   ├── index.ts
+│   │   │   ├── interface.ts
+│   │   │   ├── service.ts
+│   │   │   └── validation.ts
+│   │   ├── User
+│   │   │   ├── index.ts
+│   │   │   ├── interface.ts
+│   │   │   ├── model.ts
+│   │   │   ├── service.ts
+│   │   │   └── validation.ts
+│   │   ├── index.ts
+│   │   └── validation.ts
+│   ├── config
+│   │   ├── connection
+│   │   │   └── connection.ts
+│   │   ├── env
+│   │   │   └── index.ts
+│   │   ├── error
+│   │   │   ├── index.ts
+│   │   │   └── sendHttpError.ts
+│   │   ├── middleware
+│   │   │   ├── middleware.ts
+│   │   │   └── passport.ts
+│   │   └── server
+│   │       ├── ServerInterface.ts
+│   │       ├── index.ts
+│   │       ├── server.ts
+│   │       └── serverHandlers.ts
+│   └── routes
+│       ├── AuthRouter.ts
+│       ├── UserRouter.ts
+│       └── index.ts
+├── swagger.json
+├── swaggerDef.js
 ├── tsconfig.json
 └── tslint.json
 ```
@@ -122,45 +117,16 @@ pm2 start ./src/index.ts -i 1 \
 Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
 
-Create a user:
-
+## Swagger
 ```bash
-curl -X POST \
-  http://localhost:3000/v1/users \
-  -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
-  -d '{
-	"email": "test@gmail.com",
-	"name": "test name"
-}'
+npm install -g swagger-jsdoc
+swagger-jsdoc -d swaggerDef.js -o swagger.json
 ```
-
-Get all users:
-
+Swagger documentation will be available on route: 
 ```bash
-curl -X GET \
-  http://localhost:3000/v1/users \
-  -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache'
+http://localhost:3000/docs
 ```
-
-Get specific user by ID:
-
-```bash
-curl -X GET \
-  http://localhost:3000/v1/users/:id \
-  -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache'
-```
-
-Delete specific user by ID:
-
-```bash
-curl -X DELETE \
-  http://localhost:3000/v1/users/:id \
-  -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache'
-```
+![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
 v1.0.17
 >Added: environment config, Cron jobs.

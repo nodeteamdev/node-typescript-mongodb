@@ -27,6 +27,11 @@ module.exports = class extends Generator {
 
   writing() {
     this.fs.copyTpl(
+      this.templatePath('_swaggerDef.js'),
+      this.destinationPath(this.props.name + '/swaggerDef.js')
+    );
+
+    this.fs.copyTpl(
       this.templatePath('_nodemon.json'),
       this.destinationPath(this.props.name + '/nodemon.json')
     );
