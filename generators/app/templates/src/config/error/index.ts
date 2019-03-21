@@ -1,4 +1,5 @@
 import * as http from 'http';
+import { NextFunction, Request, Response } from 'express';
 
 /**
  * @export
