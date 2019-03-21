@@ -109,13 +109,15 @@ pm2 install typescript
 
 example start with scale on 2 core:
 ```
-pm2 start ./src/index.ts -i 1 \
-    && sleep 1 \
-    && pm2 scale index 2 --no-daemon
+pm2 start ./src/index.ts -i 2 --no-daemon
 ```
 
 Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
+
+## Set up environment
+In root folder you can find `.env`. You can use this config or change it for your purposes.
+If you want to add some new variables, you also need to add them to interface and config object (Look `src/config/index.ts`)
 
 ## Swagger
 ```bash
@@ -127,26 +129,6 @@ Swagger documentation will be available on route:
 http://localhost:3000/docs
 ```
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
-
-v1.0.17
->Added: environment config, Cron jobs.
-
-v1.0.18
-> Added: static folder to middleware;
-
-> Added: render EJS config
-
-> Added: index page (login)
-
-v1.1.0
-
-> Handle errors:
-> * render html if browser request.
-> * send json when ajax.
-
-> Added: Joi
-> Object schema description language and validator for JavaScript objects.
-
 
 ## Getting To Know Yeoman
 
