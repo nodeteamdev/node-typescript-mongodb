@@ -10,7 +10,11 @@ let swaggerDoc: Object;
 try {
     swaggerDoc = require('../../swagger.json');
 } catch (error) {
-    console.error('error: ', error);
+    console.log('***************************************************');
+    console.log('  Seems like you doesn\`t have swagger.json file');
+    console.log('  Please, run: ');
+    console.log('  $ swagger-jsdoc -d swaggerDef.js -o swagger.json');
+    console.log('***************************************************');
 }
 
 /**
