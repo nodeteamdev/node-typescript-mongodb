@@ -1,5 +1,4 @@
 import * as http from 'http';
-import { NextFunction, Request, Response } from 'express';
 
 /**
  * @export
@@ -25,25 +24,6 @@ export class HttpError extends Error {
         this.status = status || 500;
         this.name = this.name;
         this.message = message || http.STATUS_CODES[this.status] || 'Error';
-    }
-
-    /**
-     * @static
-     * @param {Error} error
-     * @param {Request} req
-     * @param {Response} res
-     * @param {NextFunction} next
-     * @returns {(Response | void)}
-     * @memberof HttpError
-     */
-    static errorHandler(error: Error, req: Request, res: Response, next: NextFunction): Response | void {
-        if (res.headersSent) {
-            return next(error);
-        }
-        res.status(500);
-        res.render('error.ejs', {
-            error
-        });
     }
 }
 

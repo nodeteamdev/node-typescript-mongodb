@@ -1,5 +1,8 @@
 import * as Joi from 'joi';
-import { IUserModel } from './model';
+
+import {
+    IUserModel
+} from './model';
 import Validation from '../validation';
 
 /**
@@ -7,8 +10,8 @@ import Validation from '../validation';
  * @class UserValidation
  * @extends Validation
  */
-class UserValidation extends Validation{
-    
+class UserValidation extends Validation {
+
     /**
      * Creates an instance of UserValidation.
      * @memberof UserValidation

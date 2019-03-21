@@ -1,5 +1,8 @@
 import * as express from 'express';
-import { HttpError } from '../error/index';
+
+import {
+    HttpError
+} from '../error/index';
 
 /**
  * @export

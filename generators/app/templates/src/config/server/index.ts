@@ -1,6 +1,7 @@
 import * as http from 'http';
-import server from './server';
 import * as serverHandlers from './serverHandlers';
+
+import server from './server';
 
 const Server: http.Server = http.createServer(server);
 

@@ -1,8 +1,15 @@
-import * as connections from '../../config/connection/connection';
-import { Document, Schema, Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import * as connections from '../../config/connection/connection';
 import * as crypto from 'crypto';
-import { NextFunction } from 'express';
+
+import {
+    Document,
+    Schema
+} from 'mongoose';
+
+import {
+    NextFunction
+} from 'express';
 
 /**
  * @export
@@ -25,7 +32,7 @@ export interface IUserModel extends Document {
         website: string,
         picture: string
     };
-    comparePassword: (password: string) => Promise<boolean>;
+    comparePassword: (password: string) => Promise < boolean > ;
     gravatar: (size: number) => string;
 }
 
@@ -38,11 +45,6 @@ export type AuthToken = {
 /**
  * @swagger
  * components:
- *  securitySchemes:
- *    cookieAuth:
- *      type: apiKey
- *      in: cookie
- *      name: sid
  *  schemas:
  *    UserSchema:
  *      required:
@@ -80,29 +82,31 @@ const UserSchema: Schema = new Schema({
     passwordResetExpires: Date,
     tokens: Array,
 }, {
-        collection: 'usermodel',
-        versionKey: false
-    }).pre('save', async function (next: NextFunction): Promise<void> {
-        const user: IUserModel = this;
+    collection: 'usermodel',
+    versionKey: false
+}).pre('save', async function (next: NextFunction): Promise < void > {
+    const user: IUserModel = this;
 
-        if (!user.isModified('password')) { return next(); }
+    if (!user.isModified('password')) {
+        return next();
+    }
 
-        try {
-            const salt: string = await bcrypt.genSalt(10);
+    try {
+        const salt: string = await bcrypt.genSalt(10);
 
-            const hash: string = await bcrypt.hash(user.password, salt);
+        const hash: string = await bcrypt.hash(user.password, salt);
 
-            user.password = hash;
-            next();
-        } catch (error) {
-            return next(error);
-        }
-    });
+        user.password = hash;
+        next();
+    } catch (error) {
+        return next(error);
+    }
+});
 
 /**
  * Method for comparing passwords
  */
-UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise < boolean > {
     try {
         const match: boolean = await bcrypt.compare(candidatePassword, this.password);
 
@@ -127,4 +131,4 @@ UserSchema.methods.gravatar = function (size: number): string {
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-export default connections.db.model<IUserModel>('UserModel', UserSchema);
+export default connections.db.model < IUserModel > ('UserModel', UserSchema);

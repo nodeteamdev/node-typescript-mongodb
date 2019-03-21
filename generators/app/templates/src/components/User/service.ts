@@ -1,14 +1,22 @@
 import * as Joi from 'joi';
-import UserModel, { IUserModel } from './model';
+
+import UserModel, {
+    IUserModel
+} from './model';
+
+import {
+    IUserService
+} from './interface';
+import {
+    Types
+} from 'mongoose';
 import UserValidation from './validation';
-import { IUserService } from './interface';
-import { Types } from 'mongoose';
 
 /**
  * @export
  * @implements {IUserModelService}
  */
-const UserService: IUserService =  {
+const UserService: IUserService = {
     /**
      * @returns {Promise < IUserModel[] >}
      * @memberof UserService
@@ -76,7 +84,7 @@ const UserService: IUserService =  {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
-            }> = UserValidation.removeUser({
+            } > = UserValidation.removeUser({
                 id
             });
 

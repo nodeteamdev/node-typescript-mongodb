@@ -1,5 +1,9 @@
 import * as debug from 'debug';
-import { Address } from 'cluster';
+
+import {
+    Address
+} from 'cluster';
+
 /**
  * @param  {NodeJS.ErrnoException} error
  * @param  {number|string|boolean} port

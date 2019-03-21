@@ -4,16 +4,24 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
+import * as mongo from 'connect-mongo';
+import * as morgan from 'morgan';
 import * as passport from 'passport';
 import * as session from 'express-session';
-import * as mongo from 'connect-mongo';
-import { CustomResponse } from '../server/ServerInterface';
-import { HttpError } from '../error/index';
-import { sendHttpErrorModule } from '../error/sendHttpError';
+
+import {
+    CustomResponse
+} from '../server/ServerInterface';
+import {
+    HttpError
+} from '../error/index';
 import config from '../env/index';
-import * as morgan from 'morgan';
+import {
+    sendHttpErrorModule
+} from '../error/sendHttpError';
 
 const MongoStore: mongo.MongoStoreFactory = mongo(session);
+
 /**
  * @export
  * @param {express.Application} app
@@ -35,6 +43,15 @@ export function configure(app: express.Application): void {
     // morgan logger
     app.use(morgan('dev'));
 
+    /**
+     * @swagger
+     * components:
+     *  securitySchemes:
+     *    cookieAuth:
+     *      type: apiKey
+     *      in: cookie
+     *      name: sid
+     */
     app.use(session({
         resave: true,
         saveUninitialized: true,

@@ -1,5 +1,11 @@
-import { HttpError } from './index';
-import { NextFunction, Request } from 'express';
+import {
+    NextFunction,
+    Request
+} from 'express';
+
+import {
+    HttpError
+} from './index';
 
 /**
  * @exports
@@ -35,19 +41,15 @@ export function sendHttpErrorModule(req: Request, res: any, next: NextFunction):
          * if this request DOESN'T explicitly want HTML
          */
         if (
-            req.xhr
-            || req.is('json')
-            || (req.is('json') && req.get('Accept'))
-            || !(req.get('Accept') && req.get('Accept').indexOf('html') !== -1)
+            req.xhr ||
+            req.is('json') ||
+            (req.is('json') && req.get('Accept')) ||
+            !(req.get('Accept') && req.get('Accept').indexOf('html') !== -1)
         ) {
             res.json({
                 status: error.status,
                 name: error.name,
                 message: error.message
-            });
-        } else {
-            res.render('error.ejs', {
-                error
             });
         }
     };

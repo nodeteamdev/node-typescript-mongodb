@@ -1,13 +1,18 @@
 import * as Joi from 'joi';
-import UserModel, { IUserModel } from '../User/model';
+
+import UserModel, {
+    IUserModel
+} from '../User/model';
+
 import AuthValidation from './validation';
-import { IAuthService } from './interface';
+import {
+    IAuthService
+} from './interface';
 
 /**
  * @export
  * @implements {IAuthService}
  */
-
 const AuthService: IAuthService = {
 
     /**
@@ -15,9 +20,9 @@ const AuthService: IAuthService = {
      * @returns {Promise <IUserModel>}
      * @memberof AuthService
      */
-    async createUser(body: IUserModel): Promise<IUserModel> {
+    async createUser(body: IUserModel): Promise < IUserModel > {
         try {
-            const validate: Joi.ValidationResult<IUserModel> = AuthValidation.createUser(body);
+            const validate: Joi.ValidationResult < IUserModel > = AuthValidation.createUser(body);
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
@@ -26,8 +31,10 @@ const AuthService: IAuthService = {
                 password: body.password
             });
 
-            const query: IUserModel = await UserModel.findOne({ email: body.email });
-            
+            const query: IUserModel = await UserModel.findOne({
+                email: body.email
+            });
+
             if (query) {
                 throw new Error('This email already exists');
             }

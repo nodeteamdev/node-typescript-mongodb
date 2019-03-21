@@ -1,5 +1,8 @@
 import * as Joi from 'Joi';
-import { Types } from 'mongoose';
+
+import {
+    Types
+} from 'mongoose';
 
 /**
  * @export

@@ -1,8 +1,16 @@
 import * as passport from 'passport';
-import { IUserModel } from '../User/model';
+
+import {
+    NextFunction,
+    Request,
+    Response
+} from 'express';
+
 import AuthService from './service';
-import { NextFunction, Request, Response } from 'express';
 import HttpError from '../../config/error';
+import {
+    IUserModel
+} from '../User/model';
 
 /**
  * @export
@@ -11,13 +19,13 @@ import HttpError from '../../config/error';
  * @param {NextFunction} next 
  * @returns {Promise < void >}
  */
-export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function signup(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
         const user: IUserModel = await AuthService.createUser(req.body);
 
         req.logIn(user, (err) => {
             if (err) {
-                return next(err);
+                return next(new HttpError(err));
             }
             res.json({
                 status: 200,
@@ -38,8 +46,6 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
     }
 }
 
-
-
 /**
  * @export
  * @param {Request} req
@@ -47,10 +53,10 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function login(req: Request, res: Response, next: NextFunction): Promise < void > {
     passport.authenticate('local', (err: Error, user: IUserModel) => {
         if (err) {
-            return next(err);
+            return next(new HttpError(400, err.message));
         }
 
         if (!user) {
@@ -60,9 +66,10 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
                 message: 'Invalid credentials!'
             });
         }
+        
         req.logIn(user, (err) => {
             if (err) {
-                return next(err);
+                return next(new HttpError(err));
             }
             res.json({
                 status: 200,
@@ -80,8 +87,8 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
  * @param {NextFunction} next
  * @returns {Promise < void >} 
  */
-export async function logout(req: Request, res: Response, next: NextFunction): Promise<void> {
-    
+export async function logout(req: Request, res: Response, next: NextFunction): Promise < void > {
+
     if (!req.user) {
         res.json({
             status: 401,

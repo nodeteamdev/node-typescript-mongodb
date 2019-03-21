@@ -1,11 +1,12 @@
 import * as express from 'express';
 import * as http from 'http';
-import UserRouter from './UserRouter';
-import AuthRouter from './AuthRouter';
 import * as passportConfig from '../config/middleware/passport';
 import * as swaggerUi from 'swagger-ui-express';
 
-let swaggerDoc:any;
+import AuthRouter from './AuthRouter';
+import UserRouter from './UserRouter';
+
+let swaggerDoc: any;
 try {
     swaggerDoc = require('../../swagger.json');
 } catch (error) {
@@ -20,63 +21,38 @@ export function init(app: express.Application): void {
     const router: express.Router = express.Router();
 
     /**
-     * Forwards any requests to the /v1/users URI to our UserRouter
+     * @description
+     *  Forwards any requests to the /v1/users URI to our UserRouter
+     *  Also, check if user authenticated
      * @constructs
      */
     app.use('/v1/users', passportConfig.isAuthenticated, UserRouter);
 
     /**
-     * Forwards any requests to the /auth URI to our AuthRouter
+     * @description Forwards any requests to the /auth URI to our AuthRouter
      * @constructs
      */
     app.use('/auth', AuthRouter);
 
-    app.get('/account', passportConfig.isAuthenticated, (req, res) => {
-        res.render('account');
-    });
-
+    /**
+     * @description
+     *  If swagger.json file exists in root folder, shows swagger api description
+     *  else send commands, how to get swagger.json file
+     * @constructs
+     */
     if (swaggerDoc) {
         app.use('/docs', swaggerUi.serve);
         app.get('/docs', swaggerUi.setup(swaggerDoc));
+    } else {
+        app.get('/docs', (req, res) => {
+            res.send('<p>Seems like you doesn\'t have <code>swagger.json</code> file.</p>' +
+                '<p>For generate doc file use: <code>swagger-jsdoc -d swaggerDef.js -o swagger.json</code> in terminal</p>' +
+                '<p>Then, restart your application</p>');
+        });
     }
 
-    /**
-     * respond with "hello world" when a GET request is made to the homepage
-     * @constructs
-     */
-    app.get('/', (req, res) => {
-        if (req.user) {
-            return res.status(200).json({
-                status: 200,
-                logged: true
-            });
-        }
-
-        res.status(401).json({
-            status: 401,
-            logged: false,
-            message: 'Not Authorized!'
-        });
-    });
-
-
-    app.use((req, res, next) => {
-        // After successful login, redirect back to the intended page
-        if (!req.user &&
-            req.path !== '/login' &&
-            req.path !== '/signup' &&
-            !req.path.match(/^\/auth/) &&
-            !req.path.match(/\./)) {
-            req.session.returnTo = req.path;
-        } else if (req.user &&
-            req.path === '/account') {
-            req.session.returnTo = req.path;
-        }
-        next();
-    });
-
     /** 
-     * No results returned mean the object is not found
+     * @description No results returned mean the object is not found
      * @constructs
      */
     app.use((req, res, next) => {

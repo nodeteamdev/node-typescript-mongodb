@@ -1,6 +1,9 @@
 import * as mongoose from 'mongoose';
+
+import {
+    IConnectOptions
+} from '../server/ServerInterface';
 import config from '../env/index';
-import { IConnectOptions } from '../server/ServerInterface';
 
 const connectOptions: IConnectOptions = {
     autoReconnect: true,

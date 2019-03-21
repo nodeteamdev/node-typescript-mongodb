@@ -1,4 +1,6 @@
-import { IUserModel } from '../User/model';
+import {
+    IUserModel
+} from '../User/model';
 
 /**
  * @export
@@ -10,5 +12,5 @@ export interface IAuthService {
      * @returns {Promise<IUserModel>}
      * @memberof AuthService
      */
-    createUser(IUserModel:IUserModel): Promise<IUserModel>;
+    createUser(IUserModel: IUserModel): Promise < IUserModel > ;
 }
