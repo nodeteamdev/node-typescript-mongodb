@@ -128,7 +128,6 @@ http://localhost:3000/docs
 ```
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
 
-
 v1.0.17
 >Added: environment config, Cron jobs.
 
