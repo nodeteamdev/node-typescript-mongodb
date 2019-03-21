@@ -1,4 +1,4 @@
-import * as Joi from 'Joi';
+import * as Joi from 'joi';
 import { Types } from 'mongoose';
 
 /**
