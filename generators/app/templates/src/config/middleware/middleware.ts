@@ -8,17 +8,9 @@ import * as mongo from 'connect-mongo';
 import * as morgan from 'morgan';
 import * as passport from 'passport';
 import * as session from 'express-session';
-
-import {
-    CustomResponse
-} from '../server/ServerInterface';
-import {
-    HttpError
-} from '../error/index';
 import config from '../env/index';
-import {
-    sendHttpErrorModule
-} from '../error/sendHttpError';
+import { HttpError } from '../error/index';
+import { sendHttpErrorModule } from '../error/sendHttpError';
 
 const MongoStore: mongo.MongoStoreFactory = mongo(session);
 
@@ -81,6 +73,10 @@ export function configure(app: express.Application): void {
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
     });
+}
+
+interface CustomResponse extends express.Response {
+    sendHttpError: (error: HttpError | Error, message ? : string) => void;
 }
 
 /**

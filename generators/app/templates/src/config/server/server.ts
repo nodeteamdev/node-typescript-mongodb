@@ -1,6 +1,6 @@
+import * as express from 'express';
 import * as Middleware from '../middleware/middleware';
 import * as Routes from '../../routes';
-import * as express from 'express';
 
 /**
  * @constant {express.Application}

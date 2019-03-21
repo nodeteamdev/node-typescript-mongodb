@@ -2,11 +2,11 @@ import * as express from 'express';
 import * as http from 'http';
 import * as passportConfig from '../config/middleware/passport';
 import * as swaggerUi from 'swagger-ui-express';
-
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 
-let swaggerDoc: any;
+let swaggerDoc: Object;
+
 try {
     swaggerDoc = require('../../swagger.json');
 } catch (error) {

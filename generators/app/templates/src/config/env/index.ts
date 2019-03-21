@@ -1,9 +1,7 @@
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
-/**
- * @interface IConfig
- */
 interface IConfig {
     port: string | number;
     database: {

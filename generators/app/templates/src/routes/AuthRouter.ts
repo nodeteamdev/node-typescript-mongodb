@@ -1,15 +1,10 @@
-import {
-    AuthComponent
-} from '../components';
-import {
-    Router
-} from 'express';
+import { AuthComponent } from '../components';
+import { Router } from 'express';
 
 /**
  * @constant {express.Router}
  */
 const router: Router = Router();
-
 
 /**
  * POST method route

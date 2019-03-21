@@ -1,9 +1,12 @@
 import * as mongoose from 'mongoose';
-
-import {
-    IConnectOptions
-} from '../server/ServerInterface';
 import config from '../env/index';
+
+interface IConnectOptions {
+    autoReconnect: boolean;
+    reconnectTries: number; // Never stop trying to reconnect
+    reconnectInterval: number;
+    loggerLevel ? : string;
+}
 
 const connectOptions: IConnectOptions = {
     autoReconnect: true,

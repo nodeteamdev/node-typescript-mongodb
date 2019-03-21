@@ -1,16 +1,8 @@
 import * as passport from 'passport';
-
-import {
-    NextFunction,
-    Request,
-    Response
-} from 'express';
-
 import AuthService from './service';
 import HttpError from '../../config/error';
-import {
-    IUserModel
-} from '../User/model';
+import { IUserModel } from '../User/model';
+import { NextFunction, Request, Response } from 'express';
 
 /**
  * @export

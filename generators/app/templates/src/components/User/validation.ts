@@ -1,9 +1,6 @@
 import * as Joi from 'joi';
-
-import {
-    IUserModel
-} from './model';
 import Validation from '../validation';
+import { IUserModel } from './model';
 
 /**
  * @export

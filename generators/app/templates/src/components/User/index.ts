@@ -1,8 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-
+import UserService from './service';
 import { HttpError } from '../../config/error';
 import { IUserModel } from './model';
-import UserService from './service';
+import { NextFunction, Request, Response } from 'express';
 
 /**
  * @export
@@ -17,7 +16,6 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
 
         res.status(200).json(users);
     } catch (error) {
-        console.log('findaAALL', error);
         next(new HttpError(error.message.status, error.message));
     }
 }

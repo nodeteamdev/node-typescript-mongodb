@@ -1,16 +1,8 @@
 import * as Joi from 'joi';
-
-import UserModel, {
-    IUserModel
-} from './model';
-
-import {
-    IUserService
-} from './interface';
-import {
-    Types
-} from 'mongoose';
+import UserModel, { IUserModel } from './model';
 import UserValidation from './validation';
+import { IUserService } from './interface';
+import { Types } from 'mongoose';
 
 /**
  * @export

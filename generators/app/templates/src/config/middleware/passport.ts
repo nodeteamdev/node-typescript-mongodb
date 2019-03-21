@@ -1,16 +1,9 @@
+import * as http from 'http';
 import * as passport from 'passport';
 import * as passportLocal from 'passport-local';
-
-import {
-    NextFunction,
-    Request,
-    Response
-} from 'express';
-import UserModel, {
-    IUserModel
-} from '../../components/User/model';
-
 import HttpError from '../error';
+import UserModel, { IUserModel } from '../../components/User/model';
+import { NextFunction, Request, Response } from 'express';
 
 type LocalStrategyType = typeof passportLocal.Strategy;
 
@@ -49,10 +42,7 @@ passport.deserializeUser(async (id: number, done: Function) => {
  */
 passport.use(new LocalStrategy({
     usernameField: 'email'
-}, async (
-    email: string,
-    password: string,
-    done: Function): Promise < void > => {
+}, async (email: string, password: string, done: Function): Promise < void > => {
     try {
         const user: IUserModel = await UserModel.findOne({
             email: email.toLowerCase()
@@ -87,5 +77,5 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
         return next();
     }
 
-    next(new HttpError(401, 'Not Authorized'));
+    next(new HttpError(401, http.STATUS_CODES[401]));
 }

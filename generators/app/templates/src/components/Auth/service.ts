@@ -1,13 +1,7 @@
 import * as Joi from 'joi';
-
-import UserModel, {
-    IUserModel
-} from '../User/model';
-
 import AuthValidation from './validation';
-import {
-    IAuthService
-} from './interface';
+import UserModel, { IUserModel } from '../User/model';
+import { IAuthService } from './interface';
 
 /**
  * @export

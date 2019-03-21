@@ -1,6 +1,4 @@
-import {
-    IUserModel
-} from '../User/model';
+import { IUserModel } from '../User/model';
 
 /**
  * @export

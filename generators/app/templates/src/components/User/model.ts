@@ -1,15 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import * as connections from '../../config/connection/connection';
 import * as crypto from 'crypto';
-
-import {
-    Document,
-    Schema
-} from 'mongoose';
-
-import {
-    NextFunction
-} from 'express';
+import { Document, Schema } from 'mongoose';
+import { NextFunction } from 'express';
 
 /**
  * @export
@@ -40,7 +33,6 @@ export type AuthToken = {
     accessToken: string,
     kind: string
 };
-
 
 /**
  * @swagger
@@ -85,7 +77,7 @@ const UserSchema: Schema = new Schema({
     collection: 'usermodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise < void > {
-    const user: IUserModel = this;
+    const user: IUserModel = this; // tslint:disable-line
 
     if (!user.isModified('password')) {
         return next();

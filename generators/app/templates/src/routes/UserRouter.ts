@@ -1,9 +1,5 @@
-import {
-    Router
-} from 'express';
-import {
-    UserComponent
-} from '../components';
+import { Router } from 'express';
+import { UserComponent } from '../components';
 
 /**
  * @constant {express.Router}
