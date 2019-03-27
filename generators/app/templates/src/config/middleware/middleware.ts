@@ -6,13 +6,17 @@ import * as express from 'express';
 import * as helmet from 'helmet';
 import * as mongo from 'connect-mongo';
 import * as morgan from 'morgan';
+<%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passport from 'passport';
 import * as session from 'express-session';
 import config from '../env/index';
+<%_ }_%>
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
 
+<%_ if(authentication === 'passport-local-strategy') { _%>
 const MongoStore: mongo.MongoStoreFactory = mongo(session);
+<%_ }_%>
 
 /**
  * @export
@@ -35,6 +39,7 @@ export function configure(app: express.Application): void {
     // morgan logger
     app.use(morgan('dev'));
 
+    <%_ if(authentication === 'passport-local-strategy') { _%>
     /**
      * @swagger
      * components:
@@ -56,7 +61,7 @@ export function configure(app: express.Application): void {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-
+    <%_ }_%>
     // custom errors
     app.use(sendHttpErrorModule);
 

@@ -28,6 +28,11 @@ Middleware.initErrorHandler(app);
 app.set('port', process.env.PORT || 3000);
 
 /**
+ * sets secret to 'superSecret', otherwise specified in the environment
+ */
+app.set('secret', process.env.SECRET || 'superSecret');
+
+/**
  * @exports {express.Application}
  */
 export default app;

@@ -15,6 +15,10 @@ This generator will help you to build your own Node.js Express Mongodb API using
 - suppot ES6/ES7 features
 - using tslint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
+## Features
+- passport local strategy
+- jwt authentication
+- OAuth2.0 Server (Authorization code grant, Refresh token grant)
 
 ## Requirements
 
@@ -118,6 +122,9 @@ The developer mode will watch your changes then will transpile the TypeScript co
 ## Set up environment
 In root folder you can find `.env`. You can use this config or change it for your purposes.
 If you want to add some new variables, you also need to add them to interface and config object (Look `src/config/index.ts`)
+
+## Usage as OAuth2.0 Server
+To use this generator as OAuth2.0 server you should implement client side, that will be handle your redirectUris and make requests to `/auth/token/` route. [Read more about OAuth2.0](https://alexbilbie.com/guide-to-oauth-2-grants/)
 
 ## Swagger
 ```bash

@@ -28,7 +28,7 @@ const production: IConfig = {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://production_uri/',
         MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
     },
-    secret: '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI'
 };
 
 const config: {

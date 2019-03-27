@@ -1,10 +1,17 @@
 import * as express from 'express';
 import * as http from 'http';
+<%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passportConfig from '../config/middleware/passport';
+<%_ }_%>
+<%_ if(authentication === 'jwt-auth') { _%>
+import * as jwtConfig from '../config/middleware/jwtAuth';
+<%_ }_%>
 import * as swaggerUi from 'swagger-ui-express';
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
-
+<%_ if(authentication === 'oauth2.0') { _%>
+import authenticate from '../config/middleware/oAuth';
+<%_ }_%>
 let swaggerDoc: Object;
 
 try {
@@ -30,7 +37,15 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
+    <%_ if(authentication === 'passport-local-strategy') { _%>
     app.use('/v1/users', passportConfig.isAuthenticated, UserRouter);
+    <%_ }_%>
+    <%_ if(authentication === 'jwt-auth') { _%>
+    app.use('/v1/users', jwtConfig.isAuthenticated, UserRouter);
+    <%_ }_%> 
+    <%_ if(authentication === 'oauth2.0') { _%>
+    app.use('/v1/users', authenticate(), UserRouter);
+    <%_ }_%>  
 
     /**
      * @description Forwards any requests to the /auth URI to our AuthRouter

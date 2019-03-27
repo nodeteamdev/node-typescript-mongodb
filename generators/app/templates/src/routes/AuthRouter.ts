@@ -82,7 +82,7 @@ router.post('/signup', AuthComponent.signup);
  *              message: Invalid credentials
  */
 router.post('/login', AuthComponent.login);
-
+<%_ if(authentication === 'passport-local-strategy') { _%>
 /**
  * POST method route
  * @example http://localhost:3000
@@ -111,7 +111,11 @@ router.post('/login', AuthComponent.login);
  *              message: You are not authorized to app. Can't logout
  */
 router.post('/logout', AuthComponent.logout);
+<%_ }_%>  
 
+<%_ if(authentication === 'oauth2.0') { _%>
+router.post('/token', AuthComponent.token);
+<%_ }_%>  
 /**
  * @export {express.Router}
  */

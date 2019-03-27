@@ -15,8 +15,14 @@ const router: Router = Router();
  *   get:
  *     description: Get all stored users in Database
  *     tags: ["users"]
+<%_ if(authentication === 'passport-local-strategy') { _%>
  *     security:
  *      - cookieAuth: []
+<%_ }_%>  
+<%_ if(authentication === 'jwt-auth') { _%>
+ *     security:
+ *      - ApiKeyAuth: []
+<%_ }_%>  
  *     responses:
  *       200:
  *         description: An array of users
@@ -43,8 +49,14 @@ router.get('/', UserComponent.findAll);
  *   post:
  *      description: Create new User
  *      tags: ["users"]
+<%_ if(authentication === 'passport-local-strategy') { _%>
  *      security:
- *        - cookieAuth: []
+ *       - cookieAuth: []
+<%_ }_%>  
+<%_ if(authentication === 'jwt-auth') { _%>
+ *      security:
+ *       - ApiKeyAuth: []
+<%_ }_%> 
  *      requestBody:
  *        description: user creation request body
  *        required: true
@@ -81,8 +93,14 @@ router.post('/', UserComponent.create);
  *  get:
  *    description: Get user by userId
  *    tags: ["users"]
+<%_ if(authentication === 'passport-local-strategy') { _%>
  *    security:
  *      - cookieAuth: []
+<%_ }_%>  
+<%_ if(authentication === 'jwt-auth') { _%>
+ *    security:
+ *      - ApiKeyAuth: []
+<%_ }_%>  
  *    parameters:
  *      - in: path
  *        name: id
@@ -110,8 +128,14 @@ router.get('/:id', UserComponent.findOne);
  *  delete:
  *    description: Delete user by userId
  *    tags: ["users"]
+<%_ if(authentication === 'passport-local-strategy') { _%>
  *    security:
  *      - cookieAuth: []
+<%_ }_%>  
+<%_ if(authentication === 'jwt-auth') { _%>
+ *    security:
+ *      - ApiKeyAuth: []
+<%_ }_%> 
  *    parameters:
  *      - in: path
  *        name: id
