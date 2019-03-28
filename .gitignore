@@ -11,3 +11,4 @@ node_modules
 .vscode
 build
 package-lock.json
+.sonarlint

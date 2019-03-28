@@ -4,16 +4,28 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import * as mongo from 'connect-mongo';
 import * as morgan from 'morgan';
+<%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passport from 'passport';
 import * as session from 'express-session';
 import config from '../env/index';
+<%_ }_%>
+<%_ if(sessionStore === 'mongo') { _%>
+import * as mongo from 'connect-mongo';
+<%_ }_%>
+<%_ if(sessionStore === 'redis') { _%>
+import * as connectRedis from 'connect-redis';
+<%_ }_%>
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
 
-const MongoStore: mongo.MongoStoreFactory = mongo(session);
 
+<%_ if(sessionStore === 'mongo') { _%>
+const MongoStore: mongo.MongoStoreFactory = mongo(session);
+<%_ }_%>
+<%_ if(sessionStore === 'redis') { _%>
+const RedisStore: connectRedis.RedisStore = connectRedis(session);
+<%_ }_%>
 /**
  * @export
  * @param {express.Application} app
@@ -35,6 +47,7 @@ export function configure(app: express.Application): void {
     // morgan logger
     app.use(morgan('dev'));
 
+    <%_ if(authentication === 'passport-local-strategy') { _%>
     /**
      * @swagger
      * components:
@@ -49,14 +62,22 @@ export function configure(app: express.Application): void {
         saveUninitialized: true,
         secret: config.secret,
         name: 'api.sid',
+    <%_ if(sessionStore === 'mongo') { _%>
         store: new MongoStore({
             url: `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`,
             autoReconnect: true
         })
+    <%_ }_%>
+    <%_ if(sessionStore === 'redis') { _%>
+        store: new RedisStore({
+            port: config.redis.port,
+            host: config.redis.host,
+        })
+    <%_ }_%>
     }));
     app.use(passport.initialize());
     app.use(passport.session());
-
+    <%_ }_%>
     // custom errors
     app.use(sendHttpErrorModule);
 
