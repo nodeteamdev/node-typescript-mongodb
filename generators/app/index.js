@@ -123,45 +123,38 @@ module.exports = class extends Generator {
 
     writing() {
         this.fs.copyTpl(
-            this.templatePath('.env'),
+            this.templatePath('_.env'),
             this.destinationPath(this.name + '/.env')
         );
-
-        if (this.secret) {
-            this.fs.append(this.name + '/.env', '\nSECRET=' + this.secret);
-        }
-
-        if (this.redisPort && this.redisHost) {
-            this.fs.append(this.name + '/.env', '\nREDIS_PORT=' + this.redisPort + '\nREDIS_HOST=' + this.redisHost);
-        }
+       
 
         this.fs.copyTpl(
-            this.templatePath('swaggerDef.js'),
+            this.templatePath('_swaggerDef.js'),
             this.destinationPath(this.name + '/swaggerDef.js')
         );
 
         this.fs.copyTpl(
-            this.templatePath('nodemon.json'),
+            this.templatePath('_nodemon.json'),
             this.destinationPath(this.name + '/nodemon.json')
         );
 
         this.fs.copyTpl(
-            this.templatePath('package.json'),
+            this.templatePath('_package.json'),
             this.destinationPath(this.name + '/package.json')
         );
 
         this.fs.copyTpl(
-            this.templatePath('tsconfig.json'),
+            this.templatePath('_tsconfig.json'),
             this.destinationPath(this.name + '/tsconfig.json')
         );
 
         this.fs.copyTpl(
-            this.templatePath('README.md'),
+            this.templatePath('_README.md'),
             this.destinationPath(this.name + '/README.md')
         );
 
         this.fs.copyTpl(
-            this.templatePath('tslint.json'),
+            this.templatePath('_tslint.json'),
             this.destinationPath(this.name + '/tslint.json')
         );
 
@@ -178,6 +171,15 @@ module.exports = class extends Generator {
                 sessionStore: this.sessionStore
             }
         );
+
+        if (this.secret) {
+            this.fs.append(this.name + '/.env', '\nSECRET=' + this.secret);
+        }
+
+        if (this.redisPort && this.redisHost) {
+            this.fs.append(this.name + '/.env', '\nREDIS_PORT=' + this.redisPort + '\nREDIS_HOST=' + this.redisHost);
+        }
+       
 
         if (this.authentication === 'oauth2.0') {
             const pkgJson = {
@@ -240,5 +242,7 @@ module.exports = class extends Generator {
 
     install() {};
 
-    end() {};
+    end() {
+       
+    };
 };
