@@ -114,6 +114,10 @@ router.post('/logout', AuthComponent.logout);
 <%_ }_%>  
 
 <%_ if(authentication === 'oauth2.0') { _%>
+/**
+ * POST method route
+ * @example http://localhost:PORT/token
+ */
 router.post('/token', AuthComponent.token);
 <%_ }_%>  
 /**

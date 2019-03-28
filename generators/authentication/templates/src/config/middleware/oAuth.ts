@@ -24,7 +24,7 @@ export default function (opt: Opt = {}): any {
 
         const _res: OAuth2Server.Response = new OAuth2Server.Response(res);
         try {
-            const token: OAuth2Server.Token = await oauth.authenticate(_req, _res, opt);
+            await oauth.authenticate(_req, _res, opt);
 
             return next();
         } catch (error) {

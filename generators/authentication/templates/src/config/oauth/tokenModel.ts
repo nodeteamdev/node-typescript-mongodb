@@ -1,6 +1,6 @@
-import { Document, Schema, Types } from 'mongoose';
 import * as connections from '../connection/connection';
 import * as OAuth2Server from 'oauth2-server';
+import { Document, Schema, Types } from 'mongoose';
 import { IUserModel } from '../../components/User/model';
 
 /**

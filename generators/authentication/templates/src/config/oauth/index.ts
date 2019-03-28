@@ -8,7 +8,7 @@ interface IOAuth2ServerModel extends OAuth2Server.AuthorizationCodeModel, OAuth2
 }
 
 //YOU CAN DELETE THIS BLOCK AFTER CLIENT CREATED
-const redirectUris: any = '<%= redirectUris  %>'.split(',').map(item => {
+const redirectUris: any = '<%= redirectUris  %>'.split(',').map((item) => {
     return item.trim();
 });
 
@@ -19,9 +19,13 @@ const defaultClient = new ClientModel({
     redirectUris: redirectUris,
     grants: ['authorization_code', 'refresh_token']
 })
-defaultClient.save(err => {
-    if (err) { console.log('error during creating defaultClient'); console.log(err); }
-    else console.log('created defaultClient');
+defaultClient.save((err) => {
+    if (err) {
+        console.log('error during creating defaultClient');
+        console.log(err);
+    } else {
+        console.log('created defaultClient');
+    }
 });
 /**
  * OAuthServerModel
@@ -43,13 +47,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {clientSecret} clientSecret
      * @returns {Promise<OAuth2Server.Client | OAuth2Server.Falsey>}
      */
-    getClient: async (
-        clientId: string,
-        clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {
+    getClient: async (clientId: string): Promise < OAuth2Server.Client | OAuth2Server.Falsey > => {
         try {
-            const client: OAuth2Server.Client = await ClientModel.findOne({ id: clientId });
-
-            return client;
+            return await ClientModel.findOne({
+                id: clientId
+            });
         } catch (error) {
             throw new Error(error);
         }
@@ -64,8 +66,8 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     saveToken: async (
         token: OAuth2Server.Token,
         client: OAuth2Server.Client,
-        user: OAuth2Server.User): Promise<OAuth2Server.Token | OAuth2Server.Falsey> => {
-
+        user: OAuth2Server.User
+    ): Promise < OAuth2Server.Token | OAuth2Server.Falsey > => {
         const _token: OAuth2Server.Token = {
             user,
             accessToken: token.accessToken,
@@ -86,11 +88,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {string} accessToken
      * @returns {Promise<OAuth2Server.Token | OAuth2Server.Falsey>}
      */
-    getAccessToken: async (accessToken: string): Promise<OAuth2Server.Token | OAuth2Server.Falsey> => {
+    getAccessToken: async (accessToken: string): Promise < OAuth2Server.Token | OAuth2Server.Falsey > => {
         try {
-            const token: OAuth2Server.Token = await TokenModel.findOne({ accessToken });
-
-            return token;
+            return await TokenModel.findOne({
+                accessToken
+            });
         } catch (error) {
 
             throw new Error(error);
@@ -102,7 +104,7 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {sring | string[]} scope
      * @returns {Promise<boolean>}
      */
-    verifyScope: async (token: OAuth2Server.Token, scope: string | string[]): Promise<boolean> => {
+    verifyScope: async (token: OAuth2Server.Token, scope: string | string[]): Promise < boolean > => {
         return token.scope === scope;
     },
 
@@ -110,9 +112,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {string} authorizationCode
      * @returns {Promise<OAuth2Server.AuthorizationCode | OAuth2Server.Falsey>}
      */
-    getAuthorizationCode: async (authorizationCode: string): Promise<OAuth2Server.AuthorizationCode | OAuth2Server.Falsey> => {
+    getAuthorizationCode: async (authorizationCode: string): Promise < OAuth2Server.AuthorizationCode | OAuth2Server.Falsey > => {
         try {
-            const _authorizationCode: IAuthCodeModel = await AuthCodeModel.findOne({ authorizationCode });
+            const _authorizationCode: IAuthCodeModel = await AuthCodeModel.findOne({
+                authorizationCode
+            });
 
             const code: OAuth2Server.AuthorizationCode = {
                 authorizationCode: _authorizationCode.authorizationCode,
@@ -141,8 +145,8 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     saveAuthorizationCode: async (
         code: OAuth2Server.AuthorizationCode,
         client: OAuth2Server.Client,
-        user: OAuth2Server.User): Promise<OAuth2Server.AuthorizationCode | OAuth2Server.Falsey> => {
-
+        user: OAuth2Server.User
+    ): Promise < OAuth2Server.AuthorizationCode | OAuth2Server.Falsey > => {
         const authorizationCode: OAuth2Server.AuthorizationCode = {
             client: {
                 id: client.id,
@@ -162,9 +166,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {OAuth2Server.AuthorizationCode} authorizationCode
      * @returns {Promise<boolean>}
      */
-    revokeAuthorizationCode: async (authorizationCode: OAuth2Server.AuthorizationCode): Promise<boolean> => {
+    revokeAuthorizationCode: async (authorizationCode: OAuth2Server.AuthorizationCode): Promise < boolean > => {
         try {
-            const result: any = await AuthCodeModel.remove({ authorizationCode: authorizationCode.authorizationCode });
+            const result: any = await AuthCodeModel.remove({
+                authorizationCode: authorizationCode.authorizationCode
+            });
 
             if (result.ok) {
                 return true;
@@ -180,11 +186,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {string} refreshToken
      * @returns {Promise<OAuth2Server.RefreshToken | OAuth2Server.Falsey>}
      */
-    getRefreshToken: async (refreshToken: string): Promise<OAuth2Server.RefreshToken | OAuth2Server.Falsey> => {
+    getRefreshToken: async (refreshToken: string): Promise < OAuth2Server.RefreshToken | OAuth2Server.Falsey > => {
         try {
-            const result: OAuth2Server.RefreshToken = await TokenModel.findOne({ refreshToken });
-
-            return result;
+            return await TokenModel.findOne({
+                refreshToken
+            });
         } catch (error) {
             throw new Error(error);
         }
@@ -194,9 +200,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      * @param {OAuth2Server.RefreshToken} token
      * @returns {Promise<boolean>}
      */
-    revokeToken: async (token: OAuth2Server.RefreshToken): Promise<boolean> => {
+    revokeToken: async (token: OAuth2Server.RefreshToken): Promise < boolean > => {
         try {
-            const result: any = await TokenModel.remove({ refreshToken: token.refreshToken });
+            const result: any = await TokenModel.remove({
+                refreshToken: token.refreshToken
+            });
 
             if (result.ok) {
                 return true;
