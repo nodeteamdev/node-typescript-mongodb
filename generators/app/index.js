@@ -5,8 +5,12 @@ const yosay = require('yosay');
 const crypto = require('crypto');
 
 const whenAuthIsChosen = authChoises => props => authChoises.indexOf(props['authentication']) !== -1;
-const whenSessionIs = sessionInput => props => sessionInput.indexOf(props['sessionStore'] !== -1);
-
+const whenSessionIs = (inputs) => (props) =>  {
+    if(inputs && props['authentication'] === 'passport-local-strategy' && props['sessionStore'] === 'redis') {
+        return true;
+    }
+    return false;
+}
 module.exports = class extends Generator {
 
     initializing() {};
@@ -78,14 +82,14 @@ module.exports = class extends Generator {
                 name: 'redis:port',
                 message: 'redis port: ',
                 default: 6379,
-                when: whenSessionIs(['redis'])
+                when: whenSessionIs('redis')
             },
             {
                 type: 'input',
                 name: 'redis:host',
                 message: 'redis host: ',
                 default: '127.0.0.1',
-                when: whenSessionIs(['redis'])
+                when: whenSessionIs('redis')
             }
         ];
 
