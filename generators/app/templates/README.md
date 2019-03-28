@@ -16,9 +16,13 @@ This generator will help you to build your own Node.js Express Mongodb API using
 - using tslint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
 ## Features
+##### Authentication:
 - passport local strategy
 - jwt authentication
 - OAuth2.0 Server (Authorization code grant, Refresh token grant)
+##### Session Storage:
+- MongoDB
+- Redis
 
 ## Requirements
 

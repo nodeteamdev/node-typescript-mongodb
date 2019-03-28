@@ -100,8 +100,6 @@ module.exports = class extends Generator {
             this.sessionStore = props.sessionStore;
             this.redisPort = props['redis:port'];
             this.redisHost = props['redis:host'];
-            console.log('PROPS: ', props);
-            console.log('redis:::::', this.redisPort, '/', this.redisHost);
         });
     }
 
@@ -207,7 +205,6 @@ module.exports = class extends Generator {
                 }
             };
             if(this.sessionStore === 'mongo') {
-                console.log('IF SESSIOSN STORE +=== mongo', pkgJson);
                 pkgJson.devDependencies['@types/connect-mongo'] = '0.0.40';
                 pkgJson.dependencies['connect-mongo'] = '^2.0.3';
             }
@@ -216,8 +213,6 @@ module.exports = class extends Generator {
                 pkgJson.devDependencies['@types/connect-redis'] = '0.0.9';
                 pkgJson.dependencies['connect-redis'] = '^3.4.1';
             }
-            
-            console.log('PACKAGE JSON > ', pkgJson);
 
             // Extend or create package.json file in destination path
             this.fs.extendJSON(this.destinationPath(this.name + '/package.json'), pkgJson);
