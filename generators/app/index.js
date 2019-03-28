@@ -163,11 +163,13 @@ module.exports = class extends Generator {
           '@types/express-session': '^1.15.12',
           '@types/passport-local': '^1.0.33',
           '@types/passport': '^1.0.0',
+          '@types/connect-mongo': '0.0.40'
         },
         dependencies: {
           'passport': '^0.4.0',
           'passport-local': '^1.0.0',
-          'express-session': '^1.15.6'
+          'express-session': '^1.15.6',
+          'connect-mongo': '^2.0.3'
         }
       };
   

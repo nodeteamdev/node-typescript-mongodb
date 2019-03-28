@@ -4,11 +4,11 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import * as mongo from 'connect-mongo';
 import * as morgan from 'morgan';
 <%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passport from 'passport';
 import * as session from 'express-session';
+import * as mongo from 'connect-mongo';
 import config from '../env/index';
 <%_ }_%>
 import { HttpError } from '../error/index';

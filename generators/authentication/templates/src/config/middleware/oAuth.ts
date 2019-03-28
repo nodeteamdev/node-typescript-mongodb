@@ -11,7 +11,7 @@ type Opt = {
  * @param {Opt} opt 
  * @returns {Promise < void >}
  */
-export default function (opt: Opt = {}): Function {
+export default function (opt: Opt = {}): any {
     return async function (req: Request, res: Response, next: NextFunction): Promise < void > {
         const _req: OAuth2Server.Request = new OAuth2Server.Request({
             headers: {
@@ -23,13 +23,12 @@ export default function (opt: Opt = {}): Function {
         });
 
         const _res: OAuth2Server.Response = new OAuth2Server.Response(res);
+        try {
+            const token: OAuth2Server.Token = await oauth.authenticate(_req, _res, opt);
 
-        oauth.authenticate(_req, _res, opt)
-        .then((token): any => {
             return next();
-        })
-        .catch((err) => {
-            return next(new HttpError(err.status, err.message));
-        });
+        } catch (error) {
+            return next(new HttpError(error.status, error.message));
+        }
     };
 }
