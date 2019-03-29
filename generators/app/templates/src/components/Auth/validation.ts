@@ -33,7 +33,25 @@ class AuthValidation extends Validation {
 
         return Joi.validate(params, schema);
     }
+    <%_ if(authentication === 'jwt-auth' || authentication === 'oauth2.0') { _%>
+    /**
+     * @param {IUserModel} params
+     * @returns {Joi.ValidationResult<IUserModel >}
+     * @memberof UserValidation
+     */
+    getUser(
+        params: IUserModel
+    ): Joi.ValidationResult < IUserModel > {
+        const schema: Joi.Schema = Joi.object().keys({
+            password: Joi.string().required(),
+            email: Joi.string().email({
+                minDomainAtoms: 2
+            }).required()
+        });
 
+        return Joi.validate(params, schema);
+    } 
+    <%_ }_%>
 }
 
 export default new AuthValidation();

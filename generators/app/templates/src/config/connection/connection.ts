@@ -6,12 +6,14 @@ interface IConnectOptions {
     reconnectTries: number; // Never stop trying to reconnect
     reconnectInterval: number;
     loggerLevel ? : string;
+    useNewUrlParser ? : boolean;
 }
 
 const connectOptions: IConnectOptions = {
     autoReconnect: true,
     reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 1000
+    reconnectInterval: 1000,
+    useNewUrlParser: true,
 };
 
 const MONGO_URI: string = `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`;

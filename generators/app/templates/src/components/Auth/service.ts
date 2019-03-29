@@ -17,9 +17,11 @@ const AuthService: IAuthService = {
     async createUser(body: IUserModel): Promise < IUserModel > {
         try {
             const validate: Joi.ValidationResult < IUserModel > = AuthValidation.createUser(body);
+
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
+
             const user: IUserModel = new UserModel({
                 email: body.email,
                 password: body.password
@@ -39,7 +41,38 @@ const AuthService: IAuthService = {
         } catch (error) {
             throw new Error(error);
         }
+    },
+    <%_ if(authentication === 'jwt-auth' || authentication === 'oauth2.0') { _%>
+    /**
+     * @param {IUserModel} body 
+     * @returns {Promise <IUserModel>}
+     * @memberof AuthService
+     */
+    async getUser(body: IUserModel): Promise < IUserModel > {
+        try {
+            const validate: Joi.ValidationResult < IUserModel > = AuthValidation.getUser(body);
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const user: IUserModel = await UserModel.findOne({
+                email: body.email
+            });
+        
+            const isMatched: boolean = await user.comparePassword(body.password);
+ 
+            if (isMatched) {
+                return user;
+            }
+
+            throw new Error('Invalid password or email');
+            
+        } catch (error) {
+            throw new Error(error);
+        }
     }
+    <%_ }_%>
 };
 
 export default AuthService;
