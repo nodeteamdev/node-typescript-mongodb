@@ -23,6 +23,10 @@ This generator will help you to build your own Node.js Express Mongodb API using
 ##### Session Storage:
 - MongoDB
 - Redis
+##### Integration testing
+- mocha
+- chai
+- supertest
 
 ## Requirements
 
@@ -122,6 +126,12 @@ pm2 start ./src/index.ts -i 2 --no-daemon
 
 Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
+
+### Testing
+To run integration tests: 
+```bash
+npm test
+```
 
 ## Set up environment
 In root folder you can find `.env`. You can use this config or change it for your purposes.
