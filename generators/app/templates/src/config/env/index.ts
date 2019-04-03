@@ -10,7 +10,7 @@ interface IConfig {
     };
     <%_ if(sessionStore === 'redis') { _%>
     redis: {
-        port: string | number;
+        port: number;
         host: string;
     };
     <%_ }_%>
@@ -27,7 +27,7 @@ const development: IConfig = {
     },
     <%_ if(sessionStore === 'redis') { _%>
     redis: {
-        port: process.env.REDIS_PORT || 6379,
+        port: parseInt(process.env.REDIS_PORT, 10) || 6379,
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
     <%_ }_%>
@@ -42,7 +42,22 @@ const production: IConfig = {
     },
     <%_ if(sessionStore === 'redis') { _%>
     redis: {
-        port: process.env.REDIS_PORT || 6379,
+        port: parseInt(process.env.REDIS_PORT, 10) || 6379,
+        host: process.env.REDIS_HOST || '127.0.0.1',
+    },
+    <%_ }_%>
+    secret: process.env.SECRET || '@QEGTUI'
+};
+
+const test: IConfig = {
+    port: process.env.PORT || 3000,
+    database: {
+        MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017',
+        MONGODB_DB_MAIN: 'test_users_db'
+    },
+    <%_ if(sessionStore === 'redis') { _%>
+    redis: {
+        port: parseInt(process.env.REDIS_PORT, 10) || 6379,
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
     <%_ }_%>
@@ -52,6 +67,7 @@ const production: IConfig = {
 const config: {
     [name: string]: IConfig
 } = {
+    test,
     development,
     production
 };

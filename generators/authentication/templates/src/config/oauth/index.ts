@@ -7,19 +7,20 @@ interface IOAuth2ServerModel extends OAuth2Server.AuthorizationCodeModel, OAuth2
 
 }
 
-//YOU CAN DELETE THIS BLOCK AFTER CLIENT CREATED
+// YOU CAN DELETE THIS BLOCK AFTER CLIENT CREATED
 const redirectUris: any = '<%= redirectUris  %>'.split(',').map((item) => {
     return item.trim();
 });
 
-const defaultClient = new ClientModel({
+const defaultClient: any = new ClientModel({
     id: '<%= clientId  %>',
     secret: '<%= clientSecret  %>',
     type: 'confidential',
     redirectUris: redirectUris,
     grants: ['authorization_code', 'refresh_token']
-})
-defaultClient.save((err) => {
+});
+
+defaultClient.save((err: any) => {
     if (err) {
         console.log('error during creating defaultClient');
         console.log(err);

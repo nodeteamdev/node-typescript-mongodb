@@ -4,7 +4,6 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import * as morgan from 'morgan';
 <%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passport from 'passport';
 import * as session from 'express-session';
@@ -18,13 +17,13 @@ import * as connectRedis from 'connect-redis';
 <%_ }_%>
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
-
-
 <%_ if(sessionStore === 'mongo') { _%>
 const MongoStore: mongo.MongoStoreFactory = mongo(session);
+
 <%_ }_%>
 <%_ if(sessionStore === 'redis') { _%>
 const RedisStore: connectRedis.RedisStore = connectRedis(session);
+
 <%_ }_%>
 /**
  * @export
@@ -44,8 +43,6 @@ export function configure(app: express.Application): void {
     app.use(helmet());
     // providing a Connect/Express middleware that can be used to enable CORS with various options
     app.use(cors());
-    // morgan logger
-    app.use(morgan('dev'));
 
     <%_ if(authentication === 'passport-local-strategy') { _%>
     /**
@@ -106,9 +103,6 @@ interface CustomResponse extends express.Response {
  */
 export function initErrorHandler(app: express.Application): void {
     app.use((error: Error, req: express.Request, res: CustomResponse, next: express.NextFunction) => {
-        if (error.name === 'UnauthorizedError') {
-
-        }
         if (typeof error === 'number') {
             error = new HttpError(error); // next(404)
         }
