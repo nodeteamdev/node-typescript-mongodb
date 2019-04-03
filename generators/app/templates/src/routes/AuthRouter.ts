@@ -119,7 +119,8 @@ router.post('/logout', AuthComponent.logout);
  * @example http://localhost:PORT/token
  */
 router.post('/token', AuthComponent.token);
-<%_ }_%>  
+<%_ }_%>
+
 /**
  * @export {express.Router}
  */

@@ -34,6 +34,7 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
     });
 }
 <%_ }_%>
+
 /**
  * @export
  * @param {Request} req 
@@ -47,7 +48,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         <%_ if(authentication === 'jwt-auth') { _%>
         const token: string = jwt.sign({ email: user.email }, app.get('secret'), {
             expiresIn: '60m'
-        });;
+        });
         
         res.json({
             status: 200,
@@ -57,9 +58,11 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         });
         <%_ }_%>
         <%_ if(authentication === 'passport-local-strategy') { _%>
+        
         passportRequestLogin(req, res, next, user, 'Sign in successfull');
         <%_ }_%>
         <%_ if(authentication === 'oauth2.0') { _%>
+        
         res.json({
             status: 200,
             user: {
@@ -108,7 +111,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
 
         const token: string = jwt.sign({ email: user.email }, app.get('secret'), {
             expiresIn: '60m'
-        });;
+        });
         
         res.json({
             status: 200,
