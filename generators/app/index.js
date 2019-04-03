@@ -207,7 +207,6 @@ module.exports = class extends Generator {
        
 
         if (this.authentication === 'oauth2.0') {
-
             const pkgJson = {
                 devDependencies: {
                     '@types/oauth2-server': '3.0.10',

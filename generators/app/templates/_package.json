@@ -1,6 +1,6 @@
 {
     "name": "typescript-express-rest-api",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "main": "./build/index.js",
     "keywords": [
         "yeoman-generator",
@@ -25,7 +25,7 @@
         "server": "tsc && npm run build && nodemon ./build/index.js",
         "start": "node ./build/index.js",
         "ts:watch": "tsc -w",
-        "test": "NODE_ENV=test mocha -r ts-node/register test/index.js"
+        "test": "NODE_ENV=test mocha -r ts-node/register test/index.js --exit"
     },
     "files": [
         "src"
