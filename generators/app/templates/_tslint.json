@@ -1,5 +1,5 @@
 {
-    "extends": "tslint-config-airbnb",
+    "extends": ["tslint-config-airbnb","tslint-eslint-rules"],
     "rules": {
         "max-line-length": [true, 150],
         "indent": [true, "spaces"],
@@ -11,7 +11,6 @@
             }
         ],
         "no-this-assignment": false,
-
         "trailing-comma": [false],
         "ter-arrow-parens": [true, "always"],
         "variable-name": [false],

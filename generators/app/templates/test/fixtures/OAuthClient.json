@@ -1,0 +1,12 @@
+{
+    "id": "yourClientApplicationId",
+    "secret": "yourClientSecret",
+    "grants": [
+        "authorization_code",
+        "refresh_token"
+    ],
+    "redirectUris": [
+        "http://yourRedirectUri"
+    ],
+    "type": "confidential"
+}

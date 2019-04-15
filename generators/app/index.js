@@ -171,6 +171,31 @@ module.exports = class extends Generator {
                 sessionStore: this.sessionStore
             }
         );
+        
+        if (this.authentication === 'oauth2.0') {
+            this.fs.copyTpl(
+                this.templatePath('test/'),
+                this.destinationPath(this.name + '/test/'), {
+                    authentication: this.authentication
+                }
+            );
+        } else {
+            this.fs.copyTpl(
+                this.templatePath('test/**/user.json'),
+                this.destinationPath(this.name + '/test/'), {
+                    authentication: this.authentication
+                }
+            );
+    
+            this.fs.copyTpl(
+                this.templatePath('test/*.js'),
+                this.destinationPath(this.name + '/test/'), {
+                    authentication: this.authentication
+                }
+            );
+        }
+
+
 
         if (this.secret) {
             this.fs.append(this.name + '/.env', '\nSECRET=' + this.secret);

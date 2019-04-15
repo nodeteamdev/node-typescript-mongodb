@@ -1,6 +1,6 @@
 {
     "name": "typescript-express-rest-api",
-    "version": "2.0.3",
+    "version": "2.0.5",
     "main": "./build/index.js",
     "keywords": [
         "yeoman-generator",
@@ -25,7 +25,7 @@
         "server": "tsc && npm run build && nodemon ./build/index.js",
         "start": "node ./build/index.js",
         "ts:watch": "tsc -w",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "NODE_ENV=test mocha -r ts-node/register test/index.js --exit"
     },
     "files": [
         "src"
@@ -58,21 +58,22 @@
         "@types/helmet": "0.0.42",
         "@types/joi": "^14.0.1",
         "@types/mongoose": "5.3.5",
-        "@types/morgan": "^1.7.35",
         "@types/node": "10.12.18",
         "@types/swagger-jsdoc": "0.0.2",
         "@types/swagger-ui-express": "^3.0.0",
         "@types/yeoman-generator": "^3.1.0",
+        "@types/chai": "^4.1.7",
+        "@types/supertest": "^2.0.7",
+        "chai": "^4.2.0",
+        "supertest": "^4.0.2",
         "jsdoc": "^3.5.5",
-        "morgan": "^1.9.1",
         "nodemon": "^1.18.10",
         "source-map-loader": "0.2.4",
         "swagger-jsdoc": "^3.2.7",
         "swagger-ui-express": "^4.0.2",
-        "ts-loader": "5.3.1",
         "tslint": "5.8.0",
         "tslint-config-airbnb": "5.8.0",
-        "tsoa": "^2.3.8",
+        "tslint-eslint-rules": "^5.4.0",
         "typescript": "2.6.2"
     }
 }
