@@ -1,6 +1,6 @@
 {
     "name": "typescript-express-rest-api",
-    "version": "2.0.5",
+    "version": "2.0.6",
     "main": "./build/index.js",
     "keywords": [
         "yeoman-generator",
@@ -21,9 +21,8 @@
     },
     "homepage": "https://github.com/ChechaValerii/node-typescript-mongodb#readme",
     "scripts": {
-        "build": "./node_modules/.bin/webpack",
-        "server": "tsc && npm run build && nodemon ./build/index.js",
-        "start": "node ./build/index.js",
+        "build": "tsc --skipLibCheck",
+        "start": "tsc --skipLibCheck && node ./build/config/server/index.js",
         "ts:watch": "tsc -w",
         "test": "NODE_ENV=test mocha -r ts-node/register test/index.js --exit"
     },
@@ -74,6 +73,6 @@
         "tslint": "5.8.0",
         "tslint-config-airbnb": "5.8.0",
         "tslint-eslint-rules": "^5.4.0",
-        "typescript": "2.6.2"
+        "typescript": "3.4.3"
     }
 }

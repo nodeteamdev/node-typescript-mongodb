@@ -204,7 +204,6 @@ module.exports = class extends Generator {
         if (this.redisPort && this.redisHost) {
             this.fs.append(this.name + '/.env', '\nREDIS_PORT=' + this.redisPort + '\nREDIS_HOST=' + this.redisHost);
         }
-       
 
         if (this.authentication === 'oauth2.0') {
             const pkgJson = {
@@ -236,12 +235,12 @@ module.exports = class extends Generator {
                 }
             };
             if(this.sessionStore === 'mongo') {
-                pkgJson.devDependencies['@types/connect-mongo'] = '0.0.40';
+                pkgJson.devDependencies['@types/connect-mongo'] = '^0.0.40';
                 pkgJson.dependencies['connect-mongo'] = '^2.0.3';
             }
 
             if(this.sessionStore === 'redis') {
-                pkgJson.devDependencies['@types/connect-redis'] = '0.0.9';
+                pkgJson.devDependencies['@types/connect-redis'] = '^0.0.9';
                 pkgJson.dependencies['connect-redis'] = '^3.4.1';
             }
 
