@@ -204,7 +204,6 @@ module.exports = class extends Generator {
         if (this.redisPort && this.redisHost) {
             this.fs.append(this.name + '/.env', '\nREDIS_PORT=' + this.redisPort + '\nREDIS_HOST=' + this.redisHost);
         }
-       
 
         if (this.authentication === 'oauth2.0') {
             const pkgJson = {
@@ -212,7 +211,7 @@ module.exports = class extends Generator {
                     '@types/oauth2-server': '3.0.10',
                 },
                 dependencies: {
-                    'oauth2-server': '^3.0.1',
+                    'oauth2-server': '3.0.1',
                 }
             };
 
@@ -223,26 +222,26 @@ module.exports = class extends Generator {
         if (this.authentication === 'passport-local-strategy') {
             const pkgJson = {
                 devDependencies: {
-                    '@types/express-session': '^1.15.12',
-                    '@types/passport-local': '^1.0.33',
-                    '@types/passport': '^1.0.0',
+                    '@types/express-session': '1.15.12',
+                    '@types/passport-local': '1.0.33',
+                    '@types/passport': '1.0.0',
                     
                 },
                 dependencies: {
-                    'passport': '^0.4.0',
-                    'passport-local': '^1.0.0',
-                    'express-session': '^1.15.6',
-                    'connect-mongo': '^2.0.3'
+                    'passport': '0.4.0',
+                    'passport-local': '1.0.0',
+                    'express-session': '1.15.6',
+                    'connect-mongo': '2.0.3'
                 }
             };
             if(this.sessionStore === 'mongo') {
                 pkgJson.devDependencies['@types/connect-mongo'] = '0.0.40';
-                pkgJson.dependencies['connect-mongo'] = '^2.0.3';
+                pkgJson.dependencies['connect-mongo'] = '2.0.3';
             }
 
             if(this.sessionStore === 'redis') {
                 pkgJson.devDependencies['@types/connect-redis'] = '0.0.9';
-                pkgJson.dependencies['connect-redis'] = '^3.4.1';
+                pkgJson.dependencies['connect-redis'] = '3.4.1';
             }
 
             // Extend or create package.json file in destination path
@@ -252,10 +251,10 @@ module.exports = class extends Generator {
         if (this.authentication === 'jwt-auth') {
             const pkgJson = {
                 devDependencies: {
-                    '@types/jsonwebtoken': '^8.3.2'
+                    '@types/jsonwebtoken': '8.3.2'
                 },
                 dependencies: {
-                    'jsonwebtoken': '^8.5.1'
+                    'jsonwebtoken': '8.5.1'
                 }
             };
 
