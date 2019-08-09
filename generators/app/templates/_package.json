@@ -65,6 +65,7 @@
         "chai": "4.2.0",
         "supertest": "4.0.2",
         "jsdoc": "3.5.5",
+        "mocha": "^6.2.0",
         "nodemon": "1.18.10",
         "source-map-loader": "0.2.4",
         "swagger-jsdoc": "3.2.7",
