@@ -1,6 +1,6 @@
 {
   "name": "generator-node-express-typescript-api",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "This generator will help you to build your own Node.js Express Mongodb API using TypeScript.",
   "homepage": "https://github.com/ChechaValerii/node-typescript-mongodb#readme",
   "author": {
@@ -56,7 +56,6 @@
   },
   "scripts": {
     "pretest": "eslint .",
-    "precommit": "lint-staged",
     "test": "jest"
   },
   "lint-staged": {
