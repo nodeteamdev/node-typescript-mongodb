@@ -60,7 +60,7 @@ const AuthService: IAuthService = {
                 email: body.email
             });
         
-            const isMatched: boolean = await user.comparePassword(body.password);
+            const isMatched: boolean = user && await user.comparePassword(body.password);
  
             if (isMatched) {
                 return user;
