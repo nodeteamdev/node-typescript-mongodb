@@ -12,3 +12,5 @@ node_modules
 build
 package-lock.json
 .sonarlint
+.history
+.sonarlint

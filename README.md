@@ -7,6 +7,7 @@
 ![onix](https://img.shields.io/badge/onix-systems-blue.svg)
 
 > Node.js Express API with TypeScript 3. Supports MongoDB
+> See [node-express-fast-progress](https://github.com/ChechaValerii/node-express-fast-progress) if you need vanilla JS
 
 ## Description
 This generator will help you to build your own Node.js Express Mongodb API using TypeScript 3.
