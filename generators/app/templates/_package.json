@@ -1,6 +1,6 @@
 {
     "name": "typescript-express-rest-api",
-    "version": "2.0.9",
+    "version": "2.0.10",
     "main": "./build/index.js",
     "keywords": [
         "yeoman-generator",
@@ -30,18 +30,18 @@
         "src"
     ],
     "dependencies": {
-        "bcrypt": "3.0.4",
-        "body-parser": "1.18.2",
-        "compression": "1.7.1",
-        "cookie-parser": "1.4.3",
+        "bcrypt": "4.0.1",
+        "body-parser": "1.19.0",
+        "compression": "1.7.4",
+        "cookie-parser": "1.4.5",
         "cors": "2.8.5",
-        "dotenv": "4.0.0",
-        "express": "4.16.2",
-        "helmet": "3.9.0",
-        "joi": "14.3.0",
-        "mongoose": "5.4.0",
-        "ts-node": "6.0.3",
-        "util": "0.11.1"
+        "dotenv": "8.2.0",
+        "express": "4.17.1",
+        "helmet": "3.22.0",
+        "joi": "14.3.1",
+        "mongoose": "5.9.16",
+        "ts-node": "8.10.1",
+        "util": "0.12.3"
     },
     "devDependencies": {
         "@types/bcrypt": "3.0.0",
