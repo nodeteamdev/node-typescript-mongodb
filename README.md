@@ -144,7 +144,7 @@ To use this generator as OAuth2.0 server you should implement client side, that 
 ## Swagger
 ```bash
 npm install -g swagger-jsdoc
-swagger-jsdoc -d swaggerDef.js -o swagger.json
+swagger-jsdoc -d swaggerDef.js ./src/**/*.ts -o swagger.json
 ```
 Swagger documentation will be available on route: 
 ```bash
