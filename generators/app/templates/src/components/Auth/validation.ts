@@ -18,38 +18,38 @@ class AuthValidation extends Validation {
     }
     /**
      * @param {IUserModel} params
-     * @returns {Joi.ValidationResult<IUserModel >}
+     * @returns {Joi.ValidationResult}
      * @memberof UserValidation
      */
     createUser(
         params: IUserModel
-    ): Joi.ValidationResult < IUserModel > {
+    ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             password: Joi.string().required(),
             email: Joi.string().email({
-                minDomainAtoms: 2
+                minDomainSegments: 2
             }).required()
         });
 
-        return Joi.validate(params, schema);
+        return schema.validate(params);
     }
     <%_ if(authentication === 'jwt-auth' || authentication === 'oauth2.0') { _%>
     /**
      * @param {IUserModel} params
-     * @returns {Joi.ValidationResult<IUserModel >}
+     * @returns {Joi.ValidationResult}
      * @memberof UserValidation
      */
     getUser(
         params: IUserModel
-    ): Joi.ValidationResult < IUserModel > {
+    ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             password: Joi.string().required(),
             email: Joi.string().email({
-                minDomainAtoms: 2
+                minDomainSegments: 2
             }).required()
         });
 
-        return Joi.validate(params, schema);
+        return schema.validate(params);
     } 
     <%_ }_%>
 }

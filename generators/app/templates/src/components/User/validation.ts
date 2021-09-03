@@ -19,20 +19,20 @@ class UserValidation extends Validation {
 
     /**
      * @param {IUserModel} params
-     * @returns {Joi.ValidationResult<IUserModel >}
+     * @returns {Joi.ValidationResult}
      * @memberof UserValidation
      */
     createUser(
         params: IUserModel
-    ): Joi.ValidationResult < IUserModel > {
+    ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             email: Joi.string().email({
-                minDomainAtoms: 2
+                minDomainSegments: 2
             }).required()
         });
 
-        return Joi.validate(params, schema);
+        return schema.validate(params);
     }
 
     /**
@@ -44,14 +44,12 @@ class UserValidation extends Validation {
         body: {
             id: string
         }
-    ): Joi.ValidationResult < {
-        id: string
-    } > {
+    ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             id: this.customJoi.objectId().required()
         });
 
-        return Joi.validate(body, schema);
+        return schema.validate(body);
     }
 
     /**
@@ -63,14 +61,12 @@ class UserValidation extends Validation {
         body: {
             id: string
         }
-    ): Joi.ValidationResult < {
-        id: string
-    } > {
+    ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             id: this.customJoi.objectId().required()
         });
 
-        return Joi.validate(body, schema);
+        return schema.validate(body);
     }
 }
 

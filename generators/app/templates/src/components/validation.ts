@@ -22,29 +22,25 @@ abstract class Validation {
      * @memberof JoiSchema
      */
     constructor() {
-        this.customJoi = Joi.extend({
-            name: 'objectId',
-            language: {
-                base: this.messageObjectId
-            },
-            pre(
-                value: string,
-                state: Joi.State,
-                options: Joi.ValidationOptions
+        this.customJoi = Joi.extend((joi) => ({
+            type: 'objectId',
+            base: joi.string(),
+            validate(
+                value: any,
+                helpers: Joi.CustomHelpers,
             ): Object | string {
                 if (!Types.ObjectId.isValid(value)) {
                     return this.createError(
                         'objectId.base', {
                             value
                         },
-                        state,
-                        options
+                        helpers,
                     );
                 }
 
                 return value; // Keep the value as it was
             }
-        });
+        }));
     }
 }
 

@@ -16,7 +16,7 @@ const AuthService: IAuthService = {
      */
     async createUser(body: IUserModel): Promise < IUserModel > {
         try {
-            const validate: Joi.ValidationResult < IUserModel > = AuthValidation.createUser(body);
+            const validate: Joi.ValidationResult = AuthValidation.createUser(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
@@ -50,7 +50,7 @@ const AuthService: IAuthService = {
      */
     async getUser(body: IUserModel): Promise < IUserModel > {
         try {
-            const validate: Joi.ValidationResult < IUserModel > = AuthValidation.getUser(body);
+            const validate: Joi.ValidationResult = AuthValidation.getUser(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);

@@ -2,17 +2,13 @@ import * as mongoose from 'mongoose';
 import config from '../env/index';
 
 interface IConnectOptions {
-    autoReconnect: boolean;
-    reconnectTries: number; // Never stop trying to reconnect
-    reconnectInterval: number;
-    loggerLevel ? : string;
+    loggerLevel?: any;
+    useUnifiedTopology?: boolean;
     useNewUrlParser ? : boolean;
 }
 
 const connectOptions: IConnectOptions = {
-    autoReconnect: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 1000,
+    useUnifiedTopology: true,
     useNewUrlParser: true,
 };
 

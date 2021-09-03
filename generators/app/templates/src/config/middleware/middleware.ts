@@ -13,14 +13,11 @@ import config from '../env/index';
 import * as mongo from 'connect-mongo';
 <%_ }_%>
 <%_ if(sessionStore === 'redis') { _%>
+import * as redis from 'redis';
 import * as connectRedis from 'connect-redis';
 <%_ }_%>
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
-<%_ if(sessionStore === 'mongo') { _%>
-const MongoStore: mongo.MongoStoreFactory = mongo(session);
-
-<%_ }_%>
 <%_ if(sessionStore === 'redis') { _%>
 const RedisStore: connectRedis.RedisStore = connectRedis(session);
 
@@ -60,16 +57,17 @@ export function configure(app: express.Application): void {
         secret: config.secret,
         name: 'api.sid',
     <%_ if(sessionStore === 'mongo') { _%>
-        store: new MongoStore({
-            url: `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`,
-            autoReconnect: true
+        store: process.env.NODE_ENV === 'development' ? 
+        new session.MemoryStore() :
+        MongoStore.create({
+            mongoUrl: `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`,
         })
     <%_ }_%>
     <%_ if(sessionStore === 'redis') { _%>
-        store: new RedisStore({
+        store: new RedisStore({ client: redis.createClient ({
             port: config.redis.port,
             host: config.redis.host,
-        })
+        })})
     <%_ }_%>
     }));
     app.use(passport.initialize());
