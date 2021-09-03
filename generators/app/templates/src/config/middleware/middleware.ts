@@ -20,8 +20,8 @@ import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
 <%_ if(sessionStore === 'redis') { _%>
 const RedisStore: connectRedis.RedisStore = connectRedis(session);
-
 <%_ }_%>
+
 /**
  * @export
  * @param {express.Application} app
