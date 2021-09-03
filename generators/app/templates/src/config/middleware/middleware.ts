@@ -64,10 +64,11 @@ export function configure(app: express.Application): void {
         })
     <%_ }_%>
     <%_ if(sessionStore === 'redis') { _%>
-        store: new RedisStore({ client: redis.createClient ({
+        store: new RedisStore({ client: redis.createClient({
             port: config.redis.port,
             host: config.redis.host,
-        })})
+            })
+        })
     <%_ }_%>
     }));
     app.use(passport.initialize());

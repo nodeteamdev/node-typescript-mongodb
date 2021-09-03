@@ -2,8 +2,7 @@ import * as mongoose from 'mongoose';
 import config from '../env/index';
 
 interface IConnectOptions {
-    loggerLevel?: any;
-    useUnifiedTopology?: boolean;
+    useUnifiedTopology: boolean;
     useNewUrlParser ? : boolean;
 }
 
