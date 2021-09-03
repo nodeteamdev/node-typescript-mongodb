@@ -6,7 +6,7 @@
 ![Plugin on redmine.org](https://img.shields.io/redmine/plugin/stars/redmine_xlsx_format_issue_exporter.svg?style=flat-square)
 ![onix](https://img.shields.io/badge/onix-systems-blue.svg)
 
-> Node.js Express API with TypeScript 3. Supports MongoDB
+> Node.js Express API with TypeScript 4. Supports MongoDB
 > See [node-express-fast-progress](https://github.com/ChechaValerii/node-express-fast-progress) if you need vanilla JS
 
 ## Description
