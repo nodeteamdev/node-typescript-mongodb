@@ -1,4 +1,4 @@
-# Node.js Express API with TypeScript 3
+# Node.js Express API with TypeScript 4
 
 
 ![CircleCI branch](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser/master.svg?style=flat-square)
@@ -6,10 +6,10 @@
 ![Plugin on redmine.org](https://img.shields.io/redmine/plugin/stars/redmine_xlsx_format_issue_exporter.svg?style=flat-square)
 ![onix](https://img.shields.io/badge/onix-systems-blue.svg)
 
-> Node.js Express API with TypeScript 3. Supports MongoDB
+> Node.js Express API with TypeScript 4. Supports MongoDB
 
 ## Description
-This generator will help you to build your own Node.js Express Mongodb API using TypeScript 3.
+This generator will help you to build your own Node.js Express Mongodb API using TypeScript 4.
 
 ### Project Introduction
 - suppot ES6/ES7 features
@@ -30,10 +30,10 @@ This generator will help you to build your own Node.js Express Mongodb API using
 
 ## Requirements
 
-- node >= 10
+- node >= 14
 - npm >= 6
-- mongodb >= 3.0
-- typescript >= 3.0
+- mongodb >= 4.0
+- typescript >= 4.0
 
 ## Installation
 

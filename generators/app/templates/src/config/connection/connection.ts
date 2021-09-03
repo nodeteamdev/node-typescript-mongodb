@@ -1,19 +1,9 @@
 import * as mongoose from 'mongoose';
 import config from '../env/index';
 
-interface IConnectOptions {
-    useUnifiedTopology: boolean;
-    useNewUrlParser ? : boolean;
-}
-
-const connectOptions: IConnectOptions = {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-};
-
 const MONGO_URI: string = `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`;
 
-export const db: mongoose.Connection = mongoose.createConnection(MONGO_URI, connectOptions);
+export const db: mongoose.Connection = mongoose.createConnection(MONGO_URI);
 
 // handlers
 db.on('connecting', () => {
