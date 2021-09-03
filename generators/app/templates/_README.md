@@ -33,7 +33,7 @@ This generator will help you to build your own Node.js Express Mongodb API using
 - node >= 10
 - npm >= 6
 - mongodb >= 3.0
-- typescript >= 3.0
+- typescript >= 4.0
 
 ## Installation
 

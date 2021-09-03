@@ -10,7 +10,7 @@ import * as session from 'express-session';
 import config from '../env/index';
 <%_ }_%>
 <%_ if(sessionStore === 'mongo') { _%>
-import * as mongo from 'connect-mongo';
+import MongoStore from 'connect-mongo';
 <%_ }_%>
 <%_ if(sessionStore === 'redis') { _%>
 import * as redis from 'redis';
@@ -65,8 +65,8 @@ export function configure(app: express.Application): void {
     <%_ }_%>
     <%_ if(sessionStore === 'redis') { _%>
         store: new RedisStore({ client: redis.createClient({
-            port: config.redis.port,
-            host: config.redis.host,
+                port: config.redis.port,
+                host: config.redis.host,
             })
         })
     <%_ }_%>
