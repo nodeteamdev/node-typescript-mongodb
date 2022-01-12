@@ -172,12 +172,9 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
             const result: any = await AuthCodeModel.remove({
                 authorizationCode: authorizationCode.authorizationCode
             });
+       
+            return result.deleteCount;
 
-            if (result.ok) {
-                return true;
-            }
-
-            return false;
         } catch (error) {
             throw new Error(error);
         }
