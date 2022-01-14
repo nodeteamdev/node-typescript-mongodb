@@ -43,6 +43,9 @@ class AuthValidation extends Validation {
         params: IUserModel
     ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
+            response_type: Joi.string(),
+            state: Joi.string(),
+            client_id: Joi.string(),
             password: Joi.string().required(),
             email: Joi.string().email({
                 minDomainSegments: 2

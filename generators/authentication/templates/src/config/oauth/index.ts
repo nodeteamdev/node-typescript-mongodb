@@ -173,7 +173,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
                 authorizationCode: authorizationCode.authorizationCode
             });
        
-            return result.deleteCount;
+            if (result){
+                return true;
+            }
+        
+            return false;
 
         } catch (error) {
             throw new Error(error);
@@ -204,7 +208,7 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
                 refreshToken: token.refreshToken
             });
 
-            if (result.ok) {
+            if (result){
                 return true;
             }
 
