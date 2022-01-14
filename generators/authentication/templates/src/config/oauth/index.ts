@@ -169,15 +169,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      */
     revokeAuthorizationCode: async (authorizationCode: OAuth2Server.AuthorizationCode): Promise < boolean > => {
         try {
-            const result: any = await AuthCodeModel.remove({
+            const result: any = await AuthCodeModel.deleteOne({
                 authorizationCode: authorizationCode.authorizationCode
             });
        
-            if (result){
-                return true;
-            }
-        
-            return false;
+            return result.deletedCount > 0;
 
         } catch (error) {
             throw new Error(error);
@@ -204,15 +200,12 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      */
     revokeToken: async (token: OAuth2Server.RefreshToken): Promise < boolean > => {
         try {
-            const result: any = await TokenModel.remove({
+            const result: any = await TokenModel.deleteOne({
                 refreshToken: token.refreshToken
             });
 
-            if (result){
-                return true;
-            }
+            return result.deletedCount > 0;
 
-            return false;
         } catch (error) {
             throw new Error(error);
         }
