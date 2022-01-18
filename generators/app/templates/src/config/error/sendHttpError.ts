@@ -1,5 +1,10 @@
 import { HttpError } from './index';
 import { NextFunction, Request } from 'express';
+import * as express from 'express';
+
+interface CustomResponse extends express.Response {
+    sendHttpError: (error: HttpError | Error, message ? : string) => void;
+}
 
 /**
  * @exports
@@ -25,7 +30,7 @@ import { NextFunction, Request } from 'express';
  *          description: Error description
  *          example: User created
  */
-export function sendHttpErrorModule(req: Request, res: any, next: NextFunction): void {
+export function sendHttpErrorModule(req: Request, res: CustomResponse, next: NextFunction): void {
     res.sendHttpError = (error: HttpError): void => {
         res.status(error.status);
 

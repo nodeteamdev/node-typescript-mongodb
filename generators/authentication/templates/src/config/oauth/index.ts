@@ -1,18 +1,20 @@
 import * as OAuth2Server from 'oauth2-server';
 import AuthCodeModel, { IAuthCodeModel } from './authCodeModel';
-import ClientModel from './clientModel';
+import ClientModel, { IClientModel } from './clientModel';
 import TokenModel from './tokenModel';
 
 interface IOAuth2ServerModel extends OAuth2Server.AuthorizationCodeModel, OAuth2Server.RefreshTokenModel {
 
 }
-
+interface IResultDeleteOne  {
+   deletedCount: Number;
+}
 // YOU CAN DELETE THIS BLOCK AFTER CLIENT CREATED
-const redirectUris: any = '<%= redirectUris  %>'.split(',').map((item) => {
+const redirectUris: Array<string> = '<%= redirectUris  %>'.split(',').map((item) => {
     return item.trim();
 });
 
-const defaultClient: any = new ClientModel({
+const defaultClient: IClientModel = new ClientModel({
     id: '<%= clientId  %>',
     secret: '<%= clientSecret  %>',
     type: 'confidential',
@@ -20,7 +22,7 @@ const defaultClient: any = new ClientModel({
     grants: ['authorization_code', 'refresh_token']
 });
 
-defaultClient.save((err: any) => {
+defaultClient.save((err: Error) => {
     if (err) {
         console.log('error during creating defaultClient');
         console.log(err);
@@ -169,10 +171,9 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      */
     revokeAuthorizationCode: async (authorizationCode: OAuth2Server.AuthorizationCode): Promise < boolean > => {
         try {
-            const result: any = await AuthCodeModel.deleteOne({
+            const result: IResultDeleteOne = await AuthCodeModel.deleteOne({
                 authorizationCode: authorizationCode.authorizationCode
             });
-       
             return result.deletedCount > 0;
 
         } catch (error) {
@@ -200,10 +201,9 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      */
     revokeToken: async (token: OAuth2Server.RefreshToken): Promise < boolean > => {
         try {
-            const result: any = await TokenModel.deleteOne({
+            const result: IResultDeleteOne = await TokenModel.deleteOne({
                 refreshToken: token.refreshToken
             });
-
             return result.deletedCount > 0;
 
         } catch (error) {

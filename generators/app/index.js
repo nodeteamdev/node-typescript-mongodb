@@ -9,8 +9,8 @@ const whenAuthIsChosen = authChoises => props =>
 const whenSessionIs = inputs => props => {
     if (
         inputs &&
-        props.authentication === 'passport-local-strategy' &&
-        props.sessionStore === 'redis'
+        props.authentication.includes('passport-local-strategy') &&
+        props.sessionStore.includes('redis')
     ) {
         return true;
     }
