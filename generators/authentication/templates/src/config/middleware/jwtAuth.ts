@@ -23,7 +23,7 @@ interface RequestWithUser extends Request {
  *       name: x-access-token
  */
 export function isAuthenticated(req: RequestWithUser, res: Response, next: NextFunction): void {
-    const token: any = req.headers['x-access-token'];
+    const token: string = req.headers['x-access-token'];
 
     if (token) {
         try {

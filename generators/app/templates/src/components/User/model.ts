@@ -77,7 +77,7 @@ const UserSchema: Schema = new Schema({
     collection: 'usermodel',
     versionKey: false
 }).pre('save', async function (next: NextFunction): Promise < void > {
-    const user: any = this; // tslint:disable-line
+    const user: IUserModel = this; // tslint:disable-line
 
     if (!user.isModified('password')) {
         return next();
