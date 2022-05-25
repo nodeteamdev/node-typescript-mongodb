@@ -20,11 +20,11 @@ export interface IUserService {
     findOne(code: string): Promise<IUserModel>;
 
     /**
-     * @param {IUserModel} IUserModel
+     * @param {IUserModel} userModel
      * @returns {Promise<IUserModel>}
      * @memberof IUserService
      */
-    insert(IUserModel: IUserModel): Promise<IUserModel>;
+    insert(userModel: IUserModel): Promise<IUserModel>;
 
     /**
      * @param {string} id

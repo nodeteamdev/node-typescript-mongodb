@@ -1,6 +1,6 @@
-import * as connections from '../connection/connection';
 import * as OAuth2Server from 'oauth2-server';
 import { Document, Schema, Types } from 'mongoose';
+import * as connections from '../connection/connection';
 import { IUserModel } from '../../components/User/model';
 
 /**
@@ -20,29 +20,29 @@ export interface ITokenModel extends Document, OAuth2Server.Token {
 const TokenSchema: Schema = new Schema({
     accessToken: {
         type: String,
-        required: true
+        required: true,
     },
     accessTokenExpiresAt: {
         type: Date,
-        required: true
+        required: true,
     },
     refreshToken: {
-        type: String
+        type: String,
     },
     refreshTokenExpiresAt: {
-        type: Date
+        type: Date,
     },
     scope: {
-        type: String
+        type: String,
     },
     client: {
         type: Object,
-        required: true
+        required: true,
     },
     user: {
         type: Object,
-        required: true
-    }
+        required: true,
+    },
 });
 
-export default connections.db.model < ITokenModel > ('TokenModel', TokenSchema);
+export default connections.db.model< ITokenModel >('TokenModel', TokenSchema);

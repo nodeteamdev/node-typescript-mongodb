@@ -9,7 +9,7 @@ const router: Router = Router();
 /**
  * GET method route
  * @example http://localhost:PORT/v1/users
- * 
+ *
  * @swagger
  * /v1/users:
  *   get:
@@ -18,11 +18,11 @@ const router: Router = Router();
 <%_ if(authentication === 'passport-local-strategy') { _%>
  *     security:
  *      - cookieAuth: []
-<%_ }_%>  
+<%_ }_%>
 <%_ if(authentication === 'jwt-auth') { _%>
  *     security:
  *      - ApiKeyAuth: []
-<%_ }_%>  
+<%_ }_%>
  *     responses:
  *       200:
  *         description: An array of users
@@ -43,7 +43,7 @@ router.get('/', UserComponent.findAll);
 /**
  * POST method route
  * @example http://localhost:PORT/v1/users
- * 
+ *
  * @swagger
  * /v1/users:
  *   post:
@@ -52,11 +52,11 @@ router.get('/', UserComponent.findAll);
 <%_ if(authentication === 'passport-local-strategy') { _%>
  *      security:
  *       - cookieAuth: []
-<%_ }_%>  
+<%_ }_%>
 <%_ if(authentication === 'jwt-auth') { _%>
  *      security:
  *       - ApiKeyAuth: []
-<%_ }_%> 
+<%_ }_%>
  *      requestBody:
  *        description: user creation request body
  *        required: true
@@ -85,9 +85,9 @@ router.get('/', UserComponent.findAll);
 router.post('/', UserComponent.create);
 
 /**
- * GET method route 
+ * GET method route
  * @example http://localhost:PORT/v1/users/:id
- * 
+ *
  * @swagger
  * /v1/users/{id}:
  *  get:
@@ -96,11 +96,11 @@ router.post('/', UserComponent.create);
 <%_ if(authentication === 'passport-local-strategy') { _%>
  *    security:
  *      - cookieAuth: []
-<%_ }_%>  
+<%_ }_%>
 <%_ if(authentication === 'jwt-auth') { _%>
  *    security:
  *      - ApiKeyAuth: []
-<%_ }_%>  
+<%_ }_%>
  *    parameters:
  *      - in: path
  *        name: id
@@ -122,7 +122,7 @@ router.get('/:id', UserComponent.findOne);
 /**
  * DELETE method route
  * @example  http://localhost:PORT/v1/users/:id
- * 
+ *
  * @swagger
  * /v1/users/{id}:
  *  delete:
@@ -131,11 +131,11 @@ router.get('/:id', UserComponent.findOne);
 <%_ if(authentication === 'passport-local-strategy') { _%>
  *    security:
  *      - cookieAuth: []
-<%_ }_%>  
+<%_ }_%>
 <%_ if(authentication === 'jwt-auth') { _%>
  *    security:
  *      - ApiKeyAuth: []
-<%_ }_%> 
+<%_ }_%>
  *    parameters:
  *      - in: path
  *        name: id

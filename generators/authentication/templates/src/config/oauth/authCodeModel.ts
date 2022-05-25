@@ -1,6 +1,6 @@
 import { Document, Schema } from 'mongoose';
-import * as connections from '../connection/connection';
 import * as OAuth2Server from 'oauth2-server';
+import * as connections from '../connection/connection';
 /**
  * @export
  * @interface IAuthCodeModel
@@ -18,27 +18,27 @@ export interface IAuthCodeModel extends Document, OAuth2Server.AuthorizationCode
 const AuthCodeSchema: Schema = new Schema({
     authorizationCode: {
         type: String,
-        required: true
+        required: true,
     },
     expiresAt: {
         type: Date,
-        required: true
+        required: true,
     },
     redirectUri: {
         type: String,
-        required: true
+        required: true,
     },
     scope: {
-        type: String
+        type: String,
     },
     client: {
         type: Object,
-        required: true
+        required: true,
     },
     user: {
         type: Object,
-        required: true
-    }
+        required: true,
+    },
 });
 
-export default connections.db.model < IAuthCodeModel > ('AuthCodeModel', AuthCodeSchema);
+export default connections.db.model< IAuthCodeModel >('AuthCodeModel', AuthCodeSchema);

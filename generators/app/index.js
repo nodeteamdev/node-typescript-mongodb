@@ -160,8 +160,8 @@ module.exports = class extends Generator {
         );
 
         this.fs.copyTpl(
-            this.templatePath('_tslint.json'),
-            this.destinationPath(this.name + '/tslint.json')
+            this.templatePath('_eslintrc.json'),
+            this.destinationPath(this.name + '/.eslintrc.json')
         );
 
         this.fs.copyTpl(
@@ -253,7 +253,7 @@ module.exports = class extends Generator {
             }
 
             if (this.sessionStore === 'redis') {
-                pkgJson.dependencies.redis = '3.1.2';
+                pkgJson.dependencies.ioredis = '5.0.5';
                 pkgJson.devDependencies['@types/connect-redis'] = '0.0.17';
                 pkgJson.dependencies['connect-redis'] = '6.0.0';
             }

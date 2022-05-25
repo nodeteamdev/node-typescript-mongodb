@@ -13,12 +13,13 @@ import config from '../env/index';
 import MongoStore from 'connect-mongo';
 <%_ }_%>
 <%_ if(sessionStore === 'redis') { _%>
-import * as redis from 'redis';
+import Redis from 'ioredis';
 import * as connectRedis from 'connect-redis';
 <%_ }_%>
 import { HttpError } from '../error/index';
 import { sendHttpErrorModule } from '../error/sendHttpError';
 <%_ if(sessionStore === 'redis') { _%>
+
 const RedisStore: connectRedis.RedisStore = connectRedis(session);
 <%_ }_%>
 
@@ -29,7 +30,7 @@ const RedisStore: connectRedis.RedisStore = connectRedis(session);
 export function configure(app: express.Application): void {
     // express middleware
     app.use(bodyParser.urlencoded({
-        extended: false
+        extended: false,
     }));
     app.use(bodyParser.json());
     // parse Cookie header and populate req.cookies with an object keyed by the cookie names.
@@ -57,18 +58,19 @@ export function configure(app: express.Application): void {
         secret: config.secret,
         name: 'api.sid',
     <%_ if(sessionStore === 'mongo') { _%>
-        store: process.env.NODE_ENV === 'development' ? 
-        new session.MemoryStore() :
-        MongoStore.create({
-            mongoUrl: `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`,
-        })
+        store: process.env.NODE_ENV === 'development'
+            ? new session.MemoryStore()
+            : MongoStore.create({
+                mongoUrl: `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`,
+            }),
     <%_ }_%>
     <%_ if(sessionStore === 'redis') { _%>
-        store: new RedisStore({ client: redis.createClient({
+        store: new RedisStore({
+            client: new Redis({
                 port: config.redis.port,
                 host: config.redis.host,
-            })
-        })
+            }),
+        }),
     <%_ }_%>
     }));
     app.use(passport.initialize());
@@ -82,10 +84,10 @@ export function configure(app: express.Application): void {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
         res.header(
             'Access-Control-Allow-Headers',
-            'Origin, X-Requested-With,' +
-            ' Content-Type, Accept,' +
-            ' Authorization,' +
-            ' Access-Control-Allow-Credentials'
+            'Origin, X-Requested-With,'
+            + ' Content-Type, Accept,'
+            + ' Authorization,'
+            + ' Access-Control-Allow-Credentials',
         );
         res.header('Access-Control-Allow-Credentials', 'true');
         next();
@@ -101,21 +103,19 @@ interface CustomResponse extends express.Response {
  * @param {express.Application} app
  */
 export function initErrorHandler(app: express.Application): void {
-    app.use((error: Error, req: express.Request, res: CustomResponse, next: express.NextFunction) => {
+    app.use((error: Error, req: express.Request, res: CustomResponse) => {
         if (typeof error === 'number') {
             error = new HttpError(error); // next(404)
         }
 
         if (error instanceof HttpError) {
             res.sendHttpError(error);
+        } else if (app.get('env') === 'development') {
+            error = new HttpError(500, error.message);
+            res.sendHttpError(error);
         } else {
-            if (app.get('env') === 'development') {
-                error = new HttpError(500, error.message);
-                res.sendHttpError(error);
-            } else {
-                error = new HttpError(500);
-                res.sendHttpError(error, error.message);
-            }
+            error = new HttpError(500);
+            res.sendHttpError(error, error.message);
         }
 
         console.error(error);

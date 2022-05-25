@@ -8,7 +8,6 @@ import { IUserModel } from './model';
  * @extends Validation
  */
 class UserValidation extends Validation {
-
     /**
      * Creates an instance of UserValidation.
      * @memberof UserValidation
@@ -23,13 +22,13 @@ class UserValidation extends Validation {
      * @memberof UserValidation
      */
     createUser(
-        params: IUserModel
+        params: IUserModel,
     ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             email: Joi.string().email({
-                minDomainSegments: 2
-            }).required()
+                minDomainSegments: 2,
+            }).required(),
         });
 
         return schema.validate(params);
@@ -43,10 +42,10 @@ class UserValidation extends Validation {
     getUser(
         body: {
             id: string
-        }
+        },
     ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
-            id: this.customJoi.objectId().required()
+            id: this.customJoi.objectId().required(),
         });
 
         return schema.validate(body);
@@ -60,10 +59,10 @@ class UserValidation extends Validation {
     removeUser(
         body: {
             id: string
-        }
+        },
     ): Joi.ValidationResult {
         const schema: Joi.Schema = Joi.object().keys({
-            id: this.customJoi.objectId().required()
+            id: this.customJoi.objectId().required(),
         });
 
         return schema.validate(body);
