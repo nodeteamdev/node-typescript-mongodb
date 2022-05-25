@@ -91,10 +91,9 @@ yo node-express-typescript-api
 │       ├── AuthRouter.ts
 │       ├── UserRouter.ts
 │       └── index.ts
-├── swagger.json
 ├── swaggerDef.js
 ├── tsconfig.json
-└── tslint.json
+└── .eslintrc.json
 ```
 ## Running the API
 ### Development
@@ -128,7 +127,7 @@ Express server listening on http://localhost:3000/, in development mode
 The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
 
 ### Testing
-To run integration tests: 
+To run integration tests:
 ```bash
 npm test
 ```
@@ -140,12 +139,7 @@ If you want to add some new variables, you also need to add them to interface an
 ## Usage as OAuth2.0 Server
 To use this generator as OAuth2.0 server you should implement client side, that will be handle your redirectUris and make requests to `/auth/token/` route. [Read more about OAuth2.0](https://alexbilbie.com/guide-to-oauth-2-grants/)
 
-## Swagger
-```bash
-npm install -g swagger-jsdoc
-swagger-jsdoc -d swaggerDef.js -o swagger.json
-```
-Swagger documentation will be available on route: 
+Swagger documentation will be available on route:
 ```bash
 http://localhost:3000/docs
 ```
