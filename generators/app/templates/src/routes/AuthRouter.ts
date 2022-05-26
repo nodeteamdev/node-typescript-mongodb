@@ -1,5 +1,5 @@
-import { AuthComponent } from '../components';
 import { Router } from 'express';
+import { AuthComponent } from '../components';
 
 /**
  * @constant {express.Router}
@@ -47,7 +47,7 @@ router.post('/signup', AuthComponent.signup);
 /**
  * POST method route
  * @example http://localhost:PORT/login
- * 
+ *
  * @swagger
  * /auth/login/:
  *  post:
@@ -86,7 +86,7 @@ router.post('/login', AuthComponent.login);
 /**
  * POST method route
  * @example http://localhost:3000
- * 
+ *
  * @swagger
  * /auth/logout/:
  *  post:
@@ -111,7 +111,7 @@ router.post('/login', AuthComponent.login);
  *              message: You are not authorized to app. Can't logout
  */
 router.post('/logout', AuthComponent.logout);
-<%_ }_%>  
+<%_ }_%>
 
 <%_ if(authentication === 'oauth2.0') { _%>
 /**
@@ -119,8 +119,8 @@ router.post('/logout', AuthComponent.logout);
  * @example http://localhost:PORT/token
  */
 router.post('/token', AuthComponent.token);
-<%_ }_%>
 
+<%_ }_%>
 /**
  * @export {express.Router}
  */

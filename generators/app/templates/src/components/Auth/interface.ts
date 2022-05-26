@@ -6,17 +6,17 @@ import { IUserModel } from '../User/model';
  */
 export interface IAuthService {
     /**
-     * @param {IUserModel} IUserModel
+     * @param {IUserModel} userModel
      * @returns {Promise<IUserModel>}
      * @memberof AuthService
      */
-    createUser(IUserModel: IUserModel): Promise < IUserModel > ;
+    createUser(userModel: IUserModel): Promise < IUserModel > ;
     <%_ if(authentication === 'jwt-auth' || authentication === 'oauth2.0') { _%>
     /**
-     * @param {IUserModel} IUserModel
+     * @param {IUserModel} userModel
      * @returns {Promise<IUserModel>}
      * @memberof AuthService
      */
-    getUser(IUserModel: IUserModel): Promise < IUserModel >;
+    getUser(userModel: IUserModel): Promise < IUserModel >;
     <%_ }_%>
 }

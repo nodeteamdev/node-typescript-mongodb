@@ -1,8 +1,13 @@
 import * as bcrypt from 'bcrypt';
-import * as connections from '../../config/connection/connection';
 import * as crypto from 'crypto';
 import { Document, Schema } from 'mongoose';
 import { NextFunction } from 'express';
+import * as connections from '../../config/connection/connection';
+
+export type AuthToken = {
+    accessToken: string,
+    kind: string,
+};
 
 /**
  * @export
@@ -23,16 +28,11 @@ export interface IUserModel extends Document {
         gender: string,
         location: string,
         website: string,
-        picture: string
+        picture: string,
     };
     comparePassword: (password: string) => Promise < boolean > ;
     gravatar: (size: number) => string;
 }
-
-export type AuthToken = {
-    accessToken: string,
-    kind: string
-};
 
 /**
  * @swagger
@@ -67,7 +67,7 @@ const UserSchema: Schema = new Schema({
     email: {
         type: String,
         unique: true,
-        trim: true
+        trim: true,
     },
     password: String,
     passwordResetToken: String,
@@ -75,7 +75,7 @@ const UserSchema: Schema = new Schema({
     tokens: Array,
 }, {
     collection: 'usermodel',
-    versionKey: false
+    versionKey: false,
 }).pre('save', async function (next: NextFunction): Promise < void > {
     const user: IUserModel = this; // tslint:disable-line
 
@@ -123,4 +123,4 @@ UserSchema.methods.gravatar = function (size: number): string {
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-export default connections.db.model < IUserModel > ('UserModel', UserSchema);
+export default connections.db.model< IUserModel >('UserModel', UserSchema);

@@ -6,6 +6,7 @@ import { Address } from 'cluster';
  * @param  {number|string|boolean} port
  * @returns throw error
  */
+// eslint-disable-next-line no-undef
 export function onError(error: NodeJS.ErrnoException, port: number | string | boolean): void {
     if (error.syscall !== 'listen') {
         throw error;

@@ -7,7 +7,7 @@ import * as Routes from '../../routes';
  */
 const app: express.Application = express();
 
-/** 
+/**
  * @constructs express.Application Middleware
  */
 Middleware.configure(app);

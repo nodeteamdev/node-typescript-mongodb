@@ -1,5 +1,4 @@
 import * as http from 'http';
-import { NextFunction, Request, Response } from 'express';
 
 /**
  * @export
@@ -8,7 +7,9 @@ import { NextFunction, Request, Response } from 'express';
  */
 export class HttpError extends Error {
     status: number;
+
     message: string;
+
     name: 'HttpError';
 
     /**
@@ -23,7 +24,7 @@ export class HttpError extends Error {
         Error.captureStackTrace(this, this.constructor);
 
         this.status = status || 500;
-        this.name = this.name;
+        this.name = this.name || 'HttpError';
         this.message = message || http.STATUS_CODES[this.status] || 'Error';
     }
 }

@@ -6,7 +6,7 @@ import TokenModel from './tokenModel';
 interface IOAuth2ServerModel extends OAuth2Server.AuthorizationCodeModel, OAuth2Server.RefreshTokenModel {
 
 }
-interface IResultDeleteOne  {
+interface IResultDeleteOne {
    deletedCount: Number;
 }
 // YOU CAN DELETE THIS BLOCK AFTER CLIENT CREATED
@@ -18,7 +18,7 @@ const defaultClient: IClientModel = new ClientModel({
     id: '<%= clientId  %>',
     secret: '<%= clientSecret  %>',
     type: 'confidential',
-    redirectUris: redirectUris,
+    redirectUris,
     grants: ['authorization_code', 'refresh_token']
 });
 
@@ -32,7 +32,7 @@ defaultClient.save((err: Error) => {
 });
 /**
  * OAuthServerModel
- * 
+ *
  * @swagger
  * components:
  *  securitySchemes:
@@ -53,7 +53,7 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     getClient: async (clientId: string): Promise < OAuth2Server.Client | OAuth2Server.Falsey > => {
         try {
             return await ClientModel.findOne({
-                id: clientId
+                id: clientId,
             });
         } catch (error) {
             throw new Error(error);
@@ -69,9 +69,9 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     saveToken: async (
         token: OAuth2Server.Token,
         client: OAuth2Server.Client,
-        user: OAuth2Server.User
+        user: OAuth2Server.User,
     ): Promise < OAuth2Server.Token | OAuth2Server.Falsey > => {
-        const _token: OAuth2Server.Token = {
+        const oAuthtoken: OAuth2Server.Token = {
             user,
             accessToken: token.accessToken,
             accessTokenExpiresAt: token.accessTokenExpiresAt,
@@ -80,11 +80,11 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
             scope: token.scope,
             client: {
                 id: client.id,
-                grants: client.grants
+                grants: client.grants,
             },
         };
 
-        return TokenModel.create(_token);
+        return TokenModel.create(oAuthtoken);
     },
 
     /**
@@ -94,10 +94,9 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     getAccessToken: async (accessToken: string): Promise < OAuth2Server.Token | OAuth2Server.Falsey > => {
         try {
             return await TokenModel.findOne({
-                accessToken
+                accessToken,
             });
         } catch (error) {
-
             throw new Error(error);
         }
     },
@@ -117,20 +116,20 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
      */
     getAuthorizationCode: async (authorizationCode: string): Promise < OAuth2Server.AuthorizationCode | OAuth2Server.Falsey > => {
         try {
-            const _authorizationCode: IAuthCodeModel = await AuthCodeModel.findOne({
-                authorizationCode
+            const authCode: IAuthCodeModel = await AuthCodeModel.findOne({
+                authorizationCode,
             });
 
             const code: OAuth2Server.AuthorizationCode = {
-                authorizationCode: _authorizationCode.authorizationCode,
-                expiresAt: _authorizationCode.expiresAt,
-                redirectUri: _authorizationCode.redirectUri,
-                scope: _authorizationCode.scope,
+                authorizationCode: authCode.authorizationCode,
+                expiresAt: authCode.expiresAt,
+                redirectUri: authCode.redirectUri,
+                scope: authCode.scope,
                 client: {
-                    id: _authorizationCode.client.id,
-                    grants: _authorizationCode.client.grants
+                    id: authCode.client.id,
+                    grants: authCode.client.grants,
                 },
-                user: _authorizationCode.user,
+                user: authCode.user,
             };
 
             return code;
@@ -148,18 +147,18 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     saveAuthorizationCode: async (
         code: OAuth2Server.AuthorizationCode,
         client: OAuth2Server.Client,
-        user: OAuth2Server.User
+        user: OAuth2Server.User,
     ): Promise < OAuth2Server.AuthorizationCode | OAuth2Server.Falsey > => {
         const authorizationCode: OAuth2Server.AuthorizationCode = {
             client: {
                 id: client.id,
-                grants: client.grants
+                grants: client.grants,
             },
             user: user.id,
             scope: code.scope,
             authorizationCode: code.authorizationCode,
             expiresAt: code.expiresAt,
-            redirectUri: code.redirectUri
+            redirectUri: code.redirectUri,
         };
 
         return AuthCodeModel.create(authorizationCode);
@@ -172,10 +171,10 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     revokeAuthorizationCode: async (authorizationCode: OAuth2Server.AuthorizationCode): Promise < boolean > => {
         try {
             const result: IResultDeleteOne = await AuthCodeModel.deleteOne({
-                authorizationCode: authorizationCode.authorizationCode
+                authorizationCode: authorizationCode.authorizationCode,
             });
-            return result.deletedCount > 0;
 
+            return result.deletedCount > 0;
         } catch (error) {
             throw new Error(error);
         }
@@ -188,7 +187,7 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     getRefreshToken: async (refreshToken: string): Promise < OAuth2Server.RefreshToken | OAuth2Server.Falsey > => {
         try {
             return await TokenModel.findOne({
-                refreshToken
+                refreshToken,
             });
         } catch (error) {
             throw new Error(error);
@@ -202,15 +201,14 @@ const OAuth2ServerModel: IOAuth2ServerModel = {
     revokeToken: async (token: OAuth2Server.RefreshToken): Promise < boolean > => {
         try {
             const result: IResultDeleteOne = await TokenModel.deleteOne({
-                refreshToken: token.refreshToken
+                refreshToken: token.refreshToken,
             });
-            return result.deletedCount > 0;
 
+            return result.deletedCount > 0;
         } catch (error) {
             throw new Error(error);
         }
-
-    }
+    },
 };
 
 /**

@@ -23,7 +23,7 @@ const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
+        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db',
     },
     <%_ if(sessionStore === 'redis') { _%>
     redis: {
@@ -31,14 +31,14 @@ const development: IConfig = {
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
     <%_ }_%>
-    secret: process.env.SECRET || '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI',
 };
 
 const production: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://production_uri/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
+        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db',
     },
     <%_ if(sessionStore === 'redis') { _%>
     redis: {
@@ -46,14 +46,14 @@ const production: IConfig = {
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
     <%_ }_%>
-    secret: process.env.SECRET || '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI',
 };
 
 const test: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017',
-        MONGODB_DB_MAIN: 'test_users_db'
+        MONGODB_DB_MAIN: 'test_users_db',
     },
     <%_ if(sessionStore === 'redis') { _%>
     redis: {
@@ -61,7 +61,7 @@ const test: IConfig = {
         host: process.env.REDIS_HOST || '127.0.0.1',
     },
     <%_ }_%>
-    secret: process.env.SECRET || '@QEGTUI'
+    secret: process.env.SECRET || '@QEGTUI',
 };
 
 const config: {
@@ -69,7 +69,7 @@ const config: {
 } = {
     test,
     development,
-    production
+    production,
 };
 
 export default config[NODE_ENV];

@@ -1,6 +1,6 @@
 import { Document, Schema } from 'mongoose';
-import * as connections from '../connection/connection';
 import * as OAuth2Server from 'oauth2-server';
+import * as connections from '../connection/connection';
 
 /**
  * @export
@@ -13,7 +13,7 @@ export interface IClientModel extends Document, OAuth2Server.Client {
 
 const ClientSchema: Schema = new Schema({
     id: {
-        type: String
+        type: String,
     },
     secret: {
         type: String,
@@ -22,19 +22,19 @@ const ClientSchema: Schema = new Schema({
     type: {
         type: String,
         enum: ['confidential', 'public'],
-        default: 'confidential'
+        default: 'confidential',
     },
     redirectUris: {
         type: Array,
-        required: true
+        required: true,
     },
     grants: {
         type: Array,
-        required: true
+        required: true,
     },
     key: {
-        type: String
-    }
+        type: String,
+    },
 });
 
-export default connections.db.model < IClientModel > ('ClientModel', ClientSchema);
+export default connections.db.model< IClientModel >('ClientModel', ClientSchema);

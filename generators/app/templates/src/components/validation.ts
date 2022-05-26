@@ -14,8 +14,7 @@ abstract class Validation {
      * @type {string}
      * @memberof JoiSchema
      */
-    readonly messageObjectId: string =
-        'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters';
+    readonly messageObjectId: string = 'Argument passed in must be a single String of 12 bytes or a string of 24 hex characters';
 
     /**
      * Creates an instance of Schema.
@@ -31,15 +30,16 @@ abstract class Validation {
             ): Object | string {
                 if (!Types.ObjectId.isValid(value)) {
                     return this.createError(
-                        'objectId.base', {
-                            value
+                        'objectId.base',
+                        {
+                            value,
                         },
                         helpers,
                     );
                 }
 
                 return value; // Keep the value as it was
-            }
+            },
         }));
     }
 }

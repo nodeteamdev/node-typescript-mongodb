@@ -1,28 +1,21 @@
 import * as express from 'express';
 import * as http from 'http';
+import * as path from 'path';
+import * as swaggerJSDoc from 'swagger-jsdoc';
+import * as swaggerUi from 'swagger-ui-express';
 <%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passportConfig from '../config/middleware/passport';
 <%_ }_%>
 <%_ if(authentication === 'jwt-auth') { _%>
 import * as jwtConfig from '../config/middleware/jwtAuth';
 <%_ }_%>
-import * as swaggerUi from 'swagger-ui-express';
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 <%_ if(authentication === 'oauth2.0') { _%>
 import authenticate from '../config/middleware/oAuth';
 <%_ }_%>
-let swaggerDoc: Object;
 
-try {
-    swaggerDoc = require('../../swagger.json');
-} catch (error) {
-    console.log('***************************************************');
-    console.log('  Seems like you doesn\`t have swagger.json file');
-    console.log('  Please, run: ');
-    console.log('  $ swagger-jsdoc -d swaggerDef.js -o swagger.json');
-    console.log('***************************************************');
-}
+const swaggerDef = require('../../swaggerDef');
 
 /**
  * @export
@@ -42,10 +35,10 @@ export function init(app: express.Application): void {
     <%_ }_%>
     <%_ if(authentication === 'jwt-auth') { _%>
     app.use('/v1/users', jwtConfig.isAuthenticated, UserRouter);
-    <%_ }_%> 
+    <%_ }_%>
     <%_ if(authentication === 'oauth2.0') { _%>
     app.use('/v1/users', authenticate(), UserRouter);
-    <%_ }_%>  
+    <%_ }_%>
 
     /**
      * @description Forwards any requests to the /auth URI to our AuthRouter
@@ -59,22 +52,16 @@ export function init(app: express.Application): void {
      *  else send commands, how to get swagger.json file
      * @constructs
      */
-    if (swaggerDoc) {
-        app.use('/docs', swaggerUi.serve);
-        app.get('/docs', swaggerUi.setup(swaggerDoc));
-    } else {
-        app.get('/docs', (req, res) => {
-            res.send('<p>Seems like you doesn\'t have <code>swagger.json</code> file.</p>' +
-                '<p>For generate doc file use: <code>swagger-jsdoc -d swaggerDef.js -o swagger.json</code> in terminal</p>' +
-                '<p>Then, restart your application</p>');
-        });
-    }
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc({
+        swaggerDefinition: swaggerDef,
+        apis: [path.join(__dirname, '../../src/**/**/*.ts')],
+    })));
 
-    /** 
+    /**
      * @description No results returned mean the object is not found
      * @constructs
      */
-    app.use((req, res, next) => {
+    app.use((req, res) => {
         res.status(404).send(http.STATUS_CODES[404]);
     });
 

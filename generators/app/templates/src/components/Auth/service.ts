@@ -8,7 +8,6 @@ import { IAuthService } from './interface';
  * @implements {IAuthService}
  */
 const AuthService: IAuthService = {
-
     /**
      * @param {IUserModel} body
      * @returns {Promise <IUserModel>}
@@ -24,11 +23,11 @@ const AuthService: IAuthService = {
 
             const user: IUserModel = new UserModel({
                 email: body.email,
-                password: body.password
+                password: body.password,
             });
 
             const query: IUserModel = await UserModel.findOne({
-                email: body.email
+                email: body.email,
             });
 
             if (query) {
@@ -44,7 +43,7 @@ const AuthService: IAuthService = {
     },
     <%_ if(authentication === 'jwt-auth' || authentication === 'oauth2.0') { _%>
     /**
-     * @param {IUserModel} body 
+     * @param {IUserModel} body
      * @returns {Promise <IUserModel>}
      * @memberof AuthService
      */
@@ -57,21 +56,20 @@ const AuthService: IAuthService = {
             }
 
             const user: IUserModel = await UserModel.findOne({
-                email: body.email
+                email: body.email,
             });
-        
+
             const isMatched: boolean = user && await user.comparePassword(body.password);
- 
+
             if (isMatched) {
                 return user;
             }
 
             throw new Error('Invalid password or email');
-            
         } catch (error) {
             throw new Error(error);
         }
-    }
+    },
     <%_ }_%>
 };
 

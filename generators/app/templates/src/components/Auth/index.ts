@@ -1,35 +1,35 @@
 <%_ if(authentication === 'passport-local-strategy') { _%>
 import * as passport from 'passport';
 <%_ }_%>
-import AuthService from './service';
-import HttpError from '../../config/error';
-import { IUserModel } from '../User/model';
 import { NextFunction, Request, Response } from 'express';
 <%_ if(authentication === 'jwt-auth') { _%>
 import * as jwt from 'jsonwebtoken';
 import app from '../../config/server/server';
 <%_ }_%>
 <%_ if(authentication === 'oauth2.0') { _%>
-import oauth from '../../config/oauth';
 import * as OAuth2Server from 'oauth2-server';
+import oauth from '../../config/oauth';
 <%_ }_%>
+import AuthService from './service';
+import HttpError from '../../config/error';
+import { IUserModel } from '../User/model';
 <%_ if(authentication === 'passport-local-strategy') { _%>
 /**
- * 
- * @param {Request} req 
- * @param {Response} res 
- * @param {NextFunction}next 
- * @param {IUserModel} user 
- * @param {string} resMessage 
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction}next
+ * @param {IUserModel} user
+ * @param {string} resMessage
  */
-function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel ,resMessage: string): void {
+function passportRequestLogin(req: Request, res: Response, next: NextFunction, user: IUserModel, resMessage: string): void {
     return req.logIn(user, (err) => {
         if (err) return next(new HttpError(err));
 
         res.json({
             status: 200,
             logged: true,
-            message: resMessage
+            message: resMessage,
         });
     });
 }
@@ -37,9 +37,9 @@ function passportRequestLogin(req: Request, res: Response, next: NextFunction, u
 
 /**
  * @export
- * @param {Request} req 
- * @param {Response} res 
- * @param {NextFunction} next 
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
  * @returns {Promise < void >}
  */
 export async function signup(req: Request, res: Response, next: NextFunction): Promise < void > {
@@ -47,27 +47,27 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         const user: IUserModel = await AuthService.createUser(req.body);
         <%_ if(authentication === 'jwt-auth') { _%>
         const token: string = jwt.sign({ email: user.email }, app.get('secret'), {
-            expiresIn: '60m'
+            expiresIn: '60m',
         });
-        
+
         res.json({
             status: 200,
             logged: true,
-            token: token,
-            message: 'Sign in successfull'
+            token,
+            message: 'Sign in successfull',
         });
         <%_ }_%>
         <%_ if(authentication === 'passport-local-strategy') { _%>
-        
+
         passportRequestLogin(req, res, next, user, 'Sign in successfull');
         <%_ }_%>
         <%_ if(authentication === 'oauth2.0') { _%>
-        
+
         res.json({
             status: 200,
             user: {
-                email: user.email
-            }
+                email: user.email,
+            },
         });
         <%_ }_%>
     } catch (error) {
@@ -76,7 +76,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         }
         res.json({
             status: 400,
-            message: error.message
+            message: error.message,
         });
     }
 }
@@ -99,7 +99,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
             return res.json({
                 status: 401,
                 logged: false,
-                message: 'Invalid credentials!'
+                message: 'Invalid credentials!',
             });
         }
         passportRequestLogin(req, res, next, user, 'Sign in successfull');
@@ -110,16 +110,15 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         const user: IUserModel = await AuthService.getUser(req.body);
 
         const token: string = jwt.sign({ email: user.email }, app.get('secret'), {
-            expiresIn: '60m'
+            expiresIn: '60m',
         });
-        
+
         res.json({
             status: 200,
             logged: true,
-            token: token,
-            message: 'Sign in successfull'
+            token,
+            message: 'Sign in successfull',
         });
-
     } catch (error) {
         if (error.code === 500) {
             return next(new HttpError(error.message.status, error.message));
@@ -127,28 +126,28 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
 
         res.json({
             status: 400,
-            message: error.message
+            message: error.message,
         });
     }
     <%_ }_%>
     <%_ if(authentication === 'oauth2.0') { _%>
-    const _req: OAuth2Server.Request = new OAuth2Server.Request(req);
-    const _res: OAuth2Server.Response = new OAuth2Server.Response(res);
+    const reqOAuth: OAuth2Server.Request = new OAuth2Server.Request(req);
+    const resOAuth: OAuth2Server.Response = new OAuth2Server.Response(res);
 
     const options: OAuth2Server.AuthorizeOptions = {
         authenticateHandler: {
-            handle: async (req: Request, res: Response): Promise<OAuth2Server.User> => {
+            handle: async (request: Request): Promise<OAuth2Server.User> => {
                 try {
-                    const user: OAuth2Server.User = await AuthService.getUser(req.body);
+                    const user: OAuth2Server.User = await AuthService.getUser(request.body);
 
                     return user;
                 } catch (error) {
                     throw new Error(error);
                 }
-            }
-        }
+            },
+        },
     };
-    const code: OAuth2Server.AuthorizationCode = await oauth.authorize(_req, _res, options);
+    const code: OAuth2Server.AuthorizationCode = await oauth.authorize(reqOAuth, resOAuth, options);
 
     res.redirect(`${code.redirectUri}?code=${code.authorizationCode}&state=${req.query.state}`);
     <%_ }_%>
@@ -156,18 +155,17 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
 <%_ if(authentication === 'passport-local-strategy') { _%>
 /**
  * @export
- * @param {Request} req 
- * @param {Response} res 
+ * @param {Request} req
+ * @param {Response} res
  * @param {NextFunction} next
- * @returns {Promise < void >} 
+ * @returns {Promise < void >}
  */
-export async function logout(req: Request, res: Response, next: NextFunction): Promise < void > {
-
+export async function logout(req: Request, res: Response): Promise < void > {
     if (!req.user) {
         res.json({
             status: 401,
             logged: false,
-            message: 'You are not authorized to app. Can\'t logout'
+            message: 'You are not authorized to app. Can\'t logout',
         });
     }
 
@@ -176,28 +174,27 @@ export async function logout(req: Request, res: Response, next: NextFunction): P
         res.json({
             status: 200,
             logged: false,
-            message: 'Successfuly logged out!'
+            message: 'Successfuly logged out!',
         });
     }
-
 }
 <%_ }_%>
 <%_ if(authentication === 'oauth2.0') { _%>
 /**
- * @param {Request} req 
- * @param {Response} res 
+ * @param {Request} req
+ * @param {Response} res
  * @param {NextFunction} next
- * @returns {Promise < void >} 
+ * @returns {Promise < void >}
  */
 export async function token(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const _req: OAuth2Server.Request = new OAuth2Server.Request(req);
-        const _res: OAuth2Server.Response = new OAuth2Server.Response(res);
-        const token: OAuth2Server.Token = await oauth.token(_req, _res);
+        const reqOAuth: OAuth2Server.Request = new OAuth2Server.Request(req);
+        const resOAuth: OAuth2Server.Response = new OAuth2Server.Response(res);
+        const oAuthToken: OAuth2Server.Token = await oauth.token(reqOAuth, resOAuth);
 
         res.json({
-            accessToken: token.accessToken,
-            refreshToken: token.refreshToken
+            accessToken: oAuthToken.accessToken,
+            refreshToken: oAuthToken.refreshToken,
         });
     } catch (error) {
         return next(new HttpError(error.status, error.message));

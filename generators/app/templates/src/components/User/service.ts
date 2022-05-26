@@ -1,8 +1,8 @@
 import * as Joi from 'joi';
+import { Types } from 'mongoose';
 import UserModel, { IUserModel } from './model';
 import UserValidation from './validation';
 import { IUserService } from './interface';
-import { Types } from 'mongoose';
 
 /**
  * @export
@@ -29,7 +29,7 @@ const UserService: IUserService = {
     async findOne(id: string): Promise < IUserModel > {
         try {
             const validate: Joi.ValidationResult = UserValidation.getUser({
-                id
+                id,
             });
 
             if (validate.error) {
@@ -37,7 +37,7 @@ const UserService: IUserService = {
             }
 
             return await UserModel.findOne({
-                _id: new Types.ObjectId(id)
+                _id: new Types.ObjectId(id),
             });
         } catch (error) {
             throw new Error(error.message);
@@ -73,7 +73,7 @@ const UserService: IUserService = {
     async remove(id: string): Promise < IUserModel > {
         try {
             const validate: Joi.ValidationResult = UserValidation.removeUser({
-                id
+                id,
             });
 
             if (validate.error) {
@@ -81,14 +81,14 @@ const UserService: IUserService = {
             }
 
             const user: IUserModel = await UserModel.findOneAndRemove({
-                _id: new Types.ObjectId(id)
+                _id: new Types.ObjectId(id),
             });
 
             return user;
         } catch (error) {
             throw new Error(error.message);
         }
-    }
+    },
 };
 
 export default UserService;
